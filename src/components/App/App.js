@@ -1,5 +1,5 @@
 import React from 'react';
-import MusicCollection from '../../scenes/MusicCollection/MusicCollection';
+import MusicCollection from '../../scenes/MusicCollection/Container';
 import Game from '../../scenes/Game/Game';
 import Result from '../../scenes/Result/Result';
 import Lobby from '../../scenes/Lobby/Container';
