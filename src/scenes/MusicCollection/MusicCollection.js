@@ -7,7 +7,8 @@ import SongInfo from '../../components/SongInfo/SongInfo';
 export default function MusicCollection({
   songs,
   currentSong,
-  onSongItemClick
+  onSongItemClick,
+  onStartClick
 }) {
   const {
     id: currentSongId,
@@ -24,6 +25,7 @@ export default function MusicCollection({
           songs={songs}
           currentSongId={currentSongId}
           onSongItemClick={onSongItemClick}
+          onStartClick={onStartClick}
         />
         <SongInfo
           currentSongTitle={currentSongTitle}

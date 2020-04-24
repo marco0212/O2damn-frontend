@@ -6,7 +6,8 @@ export default function({
   title,
   artistName,
   isActive,
-  onSongItemClick
+  onSongItemClick,
+  onStartClick
 }) {
   return (
     <SongItem
@@ -18,7 +19,11 @@ export default function({
         <strong>{artistName}</strong>
       </div>
       {
-        isActive && <button>Start</button>
+        isActive && (
+          <button onClick={onStartClick.bind(null, id)}>
+            Start
+          </button>
+        )
       }
     </SongItem>
   );

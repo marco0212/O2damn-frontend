@@ -2,7 +2,12 @@ import React from 'react';
 import SongItem from '../SongItem/SongItem';
 import styled from 'styled-components';
 
-export default function({ songs, currentSongId, onSongItemClick }) {
+export default function({
+  songs,
+  currentSongId,
+  onSongItemClick,
+  onStartClick
+}) {
   return (
     <SongList>
       {
@@ -20,6 +25,7 @@ export default function({ songs, currentSongId, onSongItemClick }) {
               artistName={artistName}
               isActive={isActive}
               onSongItemClick={onSongItemClick}
+              onStartClick={onStartClick}
             />
           );
         })
