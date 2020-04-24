@@ -2,10 +2,11 @@ import React from 'react';
 import Lobby from './Lobby';
 import { connect } from 'react-redux';
 import { updateScene } from '../../actions';
+import { MUSIC_COLLECTION } from '../../constants';
 
 function LobbyContainer({ updateScene }) {
   const startGame = () => {
-    updateScene('MusicCollection');
+    updateScene(MUSIC_COLLECTION);
   };
   return (
     <Lobby

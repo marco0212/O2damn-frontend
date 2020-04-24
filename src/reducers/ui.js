@@ -1,7 +1,7 @@
-import { UPDATE_SCENE } from "../constants";
+import { UPDATE_SCENE, LOBBY } from "../constants";
 
 const initialState = {
-  currentScene: 'Lobby'
+  currentScene: LOBBY
 };
 
 export default function(state = initialState, action) {

@@ -3,16 +3,17 @@ import MusicCollection from '../../scenes/MusicCollection/MusicCollection';
 import Game from '../../scenes/Game/Game';
 import Result from '../../scenes/Result/Result';
 import Lobby from '../../scenes/Lobby/Container';
+import { MUSIC_COLLECTION, GAME, RESULT } from '../../constants';
 
 export default function App ({ status }) {
   switch (status) {
-    case 'MusicCollection':
+    case MUSIC_COLLECTION:
       return <MusicCollection />;
 
-    case 'Game':
+    case GAME:
       return <Game />;
 
-    case 'Result':
+    case RESULT:
       return <Result />;
 
     default:
