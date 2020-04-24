@@ -1,8 +1,7 @@
-import { UPDATE_SCENE, LOBBY, UPDATE_CURRENT_SONG_ID } from "../constants";
+import { UPDATE_SCENE, LOBBY } from "../constants";
 
 const initialState = {
-  currentScene: LOBBY,
-  currentSongId: ''
+  currentScene: LOBBY
 };
 
 export default function(state = initialState, action) {
@@ -13,11 +12,6 @@ export default function(state = initialState, action) {
         currentScene: action.payload
       };
 
-    case UPDATE_CURRENT_SONG_ID:
-      return {
-        ...state,
-        currentSongId: action.payload
-      };
     default:
       return {
         ...state

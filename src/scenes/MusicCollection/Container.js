@@ -20,7 +20,7 @@ function McContainer({ songs, currentSong, getSongs, activeSong, startGame }) {
 
 const mapStateToProps = state => ({
   songs: state.song.allSongIds.map(id => state.song.songById[id]),
-  currentSong: state.song.songById[state.ui.currentSongId] || {}
+  currentSong: state.song.songById[state.musicCollection.currentSongId] || {}
 });
 const mapDispatchToProps = dispatch => ({
   getSongs: () => dispatch(getSongs()),
