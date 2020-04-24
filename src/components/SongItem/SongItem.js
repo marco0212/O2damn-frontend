@@ -9,6 +9,10 @@ export default function({
   onSongItemClick,
   onStartClick
 }) {
+  const onButtonClick = e => {
+    e.stopPropagation();
+    onStartClick(id);
+  }
   return (
     <SongItem
       onClick={onSongItemClick.bind(null, id)}
@@ -20,7 +24,7 @@ export default function({
       </div>
       {
         isActive && (
-          <button onClick={onStartClick.bind(null, id)}>
+          <button onClick={onButtonClick}>
             Start
           </button>
         )

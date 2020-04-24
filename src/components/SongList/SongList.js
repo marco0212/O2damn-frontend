@@ -20,6 +20,7 @@ export default function({
           const isActive = currentSongId === id;
           return (
             <SongItem
+              key={id}
               id={id}
               title={title}
               artistName={artistName}
