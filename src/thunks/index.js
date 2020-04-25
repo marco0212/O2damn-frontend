@@ -1,6 +1,5 @@
-import { updateSongsPending, updateSongsSuccess, updateSongsFailure, updateScene, fetchSongPending, fetchSongSuccess, fetchSongFailure } from "../actions";
-import { getSongsAPI, getSongByIdAPI } from "../api";
-import { GAME } from "../constants";
+import { updateSongsPending, updateSongsSuccess, updateSongsFailure } from "../actions";
+import { getSongsAPI } from "../api";
 
 export const getSongs = () => async dispatch => {
   try {
@@ -14,17 +13,3 @@ export const getSongs = () => async dispatch => {
     dispatch(updateSongsFailure(error.message));
   }
 }
-
-export const startGame = (id) => async dispatch => {
-  try {
-    dispatch(fetchSongPending());
-
-    const response = await getSongByIdAPI(id);
-    const { song } = await response.json();
-
-    dispatch(fetchSongSuccess(song));
-    dispatch(updateScene(GAME));
-  } catch (error) {
-    dispatch(fetchSongFailure(error));
-  }
-};
