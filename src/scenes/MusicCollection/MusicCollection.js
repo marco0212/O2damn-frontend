@@ -27,6 +27,7 @@ export default function MusicCollection({
           onSongItemClick={onSongItemClick}
         />
         <SongInfo
+          currentSongId={currentSongId}
           currentSongTitle={currentSongTitle}
           currentSongThumb={currentSongThumb}
           onStartClick={onStartClick}

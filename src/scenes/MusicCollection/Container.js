@@ -2,11 +2,12 @@ import React, { useEffect } from 'react';
 import MusicCollection from './MusicCollection';
 import { connect } from 'react-redux';
 import { getSongs } from '../../thunks';
-import { updateCurrentSongId, updateScene } from '../../actions';
+import { updateCurrentSongId, updateScene, updateGameSongId } from '../../actions';
 import { GAME } from '../../constants';
 
-function McContainer({ songs, currentSong, getSongs, activeSong, updateScene }) {
-  const startGame = () => {
+function McContainer({ songs, currentSong, getSongs, activeSong, updateScene, updateGameSongId }) {
+  const startGame = (id) => {
+    updateGameSongId(id);
     updateScene(GAME);
   };
 
@@ -29,8 +30,9 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => ({
   getSongs: () => dispatch(getSongs()),
-  activeSong: (id) => dispatch(updateCurrentSongId(id)),
-  updateScene: scene => dispatch(updateScene(scene))
+  activeSong: id => dispatch(updateCurrentSongId(id)),
+  updateScene: scene => dispatch(updateScene(scene)),
+  updateGameSongId: id => dispatch(updateGameSongId(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(McContainer);
