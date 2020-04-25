@@ -1,3 +1,5 @@
+import { UPDATE_GAME_SONG_ID } from "../constants";
+
 const initialState = {
   currentSongId: '',
   score: 0,
@@ -9,6 +11,12 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch(action.type) {
+    case UPDATE_GAME_SONG_ID:
+      return {
+        ...state,
+        currentSongId: action.payload
+      };
+
     default:
       return {
         ...state
