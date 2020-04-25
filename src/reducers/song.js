@@ -13,22 +13,26 @@ export default function (state = initialState, action) {
       const songById = songs.reduce((acc, song) => {
         const {
           _id: id,
+          title,
           artist_name: artistName,
           artist_thumbnail: artistThumbnail,
           music_thumbnail: musicThumbnail,
           music_url: musicUrl,
           video_url: videoUrl,
-          title
+          note,
+          ranking
         } = song;
 
         acc[id] = {
           id,
+          title,
           artistName,
           artistThumbnail,
           musicThumbnail,
           musicUrl,
           videoUrl,
-          title
+          note,
+          ranking
         };
         return acc;
       }, {});
