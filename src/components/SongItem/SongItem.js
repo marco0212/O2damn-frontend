@@ -7,12 +7,7 @@ export default function({
   artistName,
   isActive,
   onSongItemClick,
-  onStartClick
 }) {
-  const onButtonClick = e => {
-    e.stopPropagation();
-    onStartClick(id);
-  }
   return (
     <SongItem
       onClick={onSongItemClick.bind(null, id)}
@@ -22,13 +17,6 @@ export default function({
         <h4>{title}</h4>
         <strong>{artistName}</strong>
       </div>
-      {
-        isActive && (
-          <button onClick={onButtonClick}>
-            Start
-          </button>
-        )
-      }
     </SongItem>
   );
 }

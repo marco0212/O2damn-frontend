@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function({ currentSongTitle, currentSongThumb }) {
+export default function({ currentSongTitle, currentSongThumb, onStartClick }) {
   return (
     <SongInfo>
       {
@@ -11,6 +11,7 @@ export default function({ currentSongTitle, currentSongThumb }) {
           <div>no selected</div>
         )
       }
+      <button onClick={onStartClick}>Start</button>
     </SongInfo>
   );
 }

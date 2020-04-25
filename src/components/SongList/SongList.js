@@ -5,8 +5,7 @@ import styled from 'styled-components';
 export default function({
   songs,
   currentSongId,
-  onSongItemClick,
-  onStartClick
+  onSongItemClick
 }) {
   return (
     <SongList>
@@ -26,7 +25,6 @@ export default function({
               artistName={artistName}
               isActive={isActive}
               onSongItemClick={onSongItemClick}
-              onStartClick={onStartClick}
             />
           );
         })

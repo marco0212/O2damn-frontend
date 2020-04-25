@@ -25,11 +25,11 @@ export default function MusicCollection({
           songs={songs}
           currentSongId={currentSongId}
           onSongItemClick={onSongItemClick}
-          onStartClick={onStartClick}
         />
         <SongInfo
           currentSongTitle={currentSongTitle}
           currentSongThumb={currentSongThumb}
+          onStartClick={onStartClick}
         />
       </Main>
     </Container>
