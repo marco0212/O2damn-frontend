@@ -1,6 +1,6 @@
 export default function Note(x, y, width) {
   this.x = x;
-  this.y = y;
+  this.y = -y;
   this.width = width;
   this.then = Date.now();
   this.delta = 0;

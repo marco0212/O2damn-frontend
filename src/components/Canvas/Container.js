@@ -21,7 +21,7 @@ function CanvasContainer() {
       const { time, key } = note;
       const width = 100;
 
-      return new Note(width * key, -time * speed, width);
+      return new Note(width * key, time * speed, width);
     });
     const keyPads = Bindingkeys.map((key, index) => new KeyPad(index, 100, key));
 
@@ -39,7 +39,12 @@ function CanvasContainer() {
 
     window.addEventListener('keydown', onKeydown);
     animation();
+
+    return () => {
+      window.removeEventListener('keydown', onKeydown);
+    }
   }, []);
+
   return <Canvas refs={canvasRef} />;
 }
 
