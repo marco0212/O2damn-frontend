@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import Canvas from './Canvas';
-import Note from '../../objects/Note';
-import KeyPad from '../../objects/KeyPad';
+import Note from '../../classes/Note';
+import KeyPad from '../../classes/KeyPad';
 
 const keyNotes = new Array(30).fill().map(() => ({ time: Math.floor(Math.random() * 30), key: Math.floor(Math.random() * 6) }));
 const Bindingkeys = [83, 68, 70, 74, 75, 76];
