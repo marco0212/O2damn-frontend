@@ -1,8 +1,9 @@
 export default class Note {
-  constructor(x, y, width) {
+  constructor(x, y, width, height) {
     this.x = x;
     this.y = -y;
     this.width = width;
+    this.height = height;
     this.then = Date.now();
     this.delta = 0;
   }
@@ -17,6 +18,6 @@ export default class Note {
     this.setDelta();
     this.y += speed * this.delta;
     ctx.fillStyle = 'red';
-    ctx.fillRect(this.x, this.y, this.width, 30);
+    ctx.fillRect(this.x, this.y, this.width, this.height);
   };
 }

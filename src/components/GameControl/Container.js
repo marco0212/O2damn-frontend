@@ -23,13 +23,14 @@ function CanvasContainer() {
     canvas.width = 300;
     canvas.height = window.innerHeight - 90;
 
+    const noteWidth = canvas.width / Bindingkeys.length;
+    const noteHeight = 30;
     const notes = keyNotes.map(note => {
       const { time, key } = note;
-      const width = canvas.width / Bindingkeys.length;
 
-      return new Note(width * key, time * speed, width);
+      return new Note(noteWidth * key, time * speed, noteWidth, noteHeight);
     });
-    const keyPads = Bindingkeys.map((key, index) => new KeyPad(index, 50, key));
+    const keyPads = Bindingkeys.map((key, index) => new KeyPad(index, noteWidth, key));
 
     function animation() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
