@@ -1,15 +1,24 @@
-import { UPDATE_CURRENT_SONG_ID } from "../constants";
+import {
+  INCREASE_CURRENT_SONG_INDEX,
+  DECREASE_CURRENT_SONG_INDEX
+} from "../constants";
 
 const initialState = {
-  currentSongId: ''
+  currentSongIndex: 0
 };
 
 export default function(state = initialState, action) {
   switch(action.type) {
-    case UPDATE_CURRENT_SONG_ID:
+    case INCREASE_CURRENT_SONG_INDEX:
       return {
         ...state,
-        currentSongId: action.payload
+        currentSongIndex : state.currentSongIndex + 1
+      };
+
+    case DECREASE_CURRENT_SONG_INDEX:
+      return {
+        ...state,
+        currentSongIndex : state.currentSongIndex - 1
       };
 
     default:

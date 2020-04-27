@@ -2,13 +2,17 @@ import React, { useEffect } from 'react';
 import MusicCollection from './MusicCollection';
 import { connect } from 'react-redux';
 import { getSongs } from '../../thunks';
-import { updateCurrentSongId } from '../../actions';
+import {
+  increaseCurrentSongIndex,
+  decreaseCurrentSongIndex
+} from '../../actions';
 
 function McContainer({
   songs,
   currentSong,
   getSongs,
-  updateCurrentSongId
+  increaseSongIndex,
+  decreaseSongIndex
 }) {
   useEffect(() => {
     const updateCurrentSong = e => {
@@ -16,22 +20,18 @@ function McContainer({
       const UPKEY = 38;
       const DOWNKEY = 40;
 
-      if (key === UPKEY) {
-        console.log('Up press');
-      } else if (key === DOWNKEY) {
-        console.log('Down press');
+      if (key === DOWNKEY) {
+        increaseSongIndex();
+      } else if (key === UPKEY) {
+        decreaseSongIndex();
       }
     };
-
-    if (songs.length && !currentSong.id) {
-      updateCurrentSongId(songs[0].id);
-    }
 
     window.addEventListener('keydown', updateCurrentSong);
     return () => {
       window.removeEventListener('keydown', updateCurrentSong);
     }
-  }, [songs, currentSong.id, updateCurrentSongId]);
+  }, [songs, currentSong.id, increaseSongIndex, decreaseSongIndex]);
 
   useEffect(() => {
     getSongs();
@@ -46,11 +46,12 @@ function McContainer({
 
 const mapStateToProps = state => ({
   songs: state.song.allSongIds.map(id => state.song.songById[id]),
-  currentSong: state.song.songById[state.musicCollection.currentSongId] || {}
+  currentSong: state.song.songById[state.song.allSongIds[state.musicCollection.currentSongIndex]] || {}
 });
 const mapDispatchToProps = dispatch => ({
   getSongs: () => dispatch(getSongs()),
-  updateCurrentSongId: id => dispatch(updateCurrentSongId(id))
+  increaseSongIndex: () => dispatch(increaseCurrentSongIndex()),
+  decreaseSongIndex: () => dispatch(decreaseCurrentSongIndex())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(McContainer);
