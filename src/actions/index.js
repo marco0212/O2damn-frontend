@@ -13,11 +13,6 @@ export const updateScene = scene => ({
   payload: scene
 });
 
-export const updateGameSongId = id => ({
-  type: UPDATE_GAME_SONG_ID,
-  payload: id
-});
-
 export const updateSongsPending = () => ({
   type: UPDATE_SONGS_PENDING
 });
@@ -35,4 +30,9 @@ export const increaseCurrentSongIndex = () => ({
 });
 export const decreaseCurrentSongIndex = () => ({
   type: DECREASE_CURRENT_SONG_INDEX
+});
+
+export const updateGameSongId = id => ({
+  type: UPDATE_GAME_SONG_ID,
+  payload: id
 });

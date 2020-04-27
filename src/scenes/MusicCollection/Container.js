@@ -4,34 +4,46 @@ import { connect } from 'react-redux';
 import { getSongs } from '../../thunks';
 import {
   increaseCurrentSongIndex,
-  decreaseCurrentSongIndex
+  decreaseCurrentSongIndex,
+  updateGameSongId,
+  updateScene
 } from '../../actions';
+import { GAME } from '../../constants';
 
 function McContainer({
   songs,
   currentSong,
   getSongs,
   increaseSongIndex,
-  decreaseSongIndex
+  decreaseSongIndex,
+  updateGameSongId,
+  updateScene
 }) {
   useEffect(() => {
-    const updateCurrentSong = e => {
+    const startGame = id => {
+      updateGameSongId(id);
+      updateScene(GAME);
+    };
+    const onKeydownHandler = e => {
       const key = e.which;
       const UPKEY = 38;
       const DOWNKEY = 40;
+      const SPACE_BAR = 32;
 
       if (key === DOWNKEY) {
         increaseSongIndex();
       } else if (key === UPKEY) {
         decreaseSongIndex();
+      } else if (key === SPACE_BAR) {
+        startGame(currentSong.id);
       }
     };
 
-    window.addEventListener('keydown', updateCurrentSong);
+    window.addEventListener('keydown', onKeydownHandler);
     return () => {
-      window.removeEventListener('keydown', updateCurrentSong);
+      window.removeEventListener('keydown', onKeydownHandler);
     }
-  }, [songs, currentSong.id, increaseSongIndex, decreaseSongIndex]);
+  }, [songs, currentSong.id, increaseSongIndex, decreaseSongIndex, updateGameSongId, updateScene]);
 
   useEffect(() => {
     getSongs();
@@ -51,7 +63,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getSongs: () => dispatch(getSongs()),
   increaseSongIndex: () => dispatch(increaseCurrentSongIndex()),
-  decreaseSongIndex: () => dispatch(decreaseCurrentSongIndex())
+  decreaseSongIndex: () => dispatch(decreaseCurrentSongIndex()),
+  updateGameSongId: (id) => dispatch(updateGameSongId(id)),
+  updateScene: (scene) => dispatch(updateScene(scene))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(McContainer);
