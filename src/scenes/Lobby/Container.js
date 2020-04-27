@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Lobby from './Lobby';
 import { connect } from 'react-redux';
 import { updateScene } from '../../actions';
 import { MUSIC_COLLECTION } from '../../constants';
 
 function LobbyContainer({ updateScene }) {
-  const startGame = () => {
-    updateScene(MUSIC_COLLECTION);
-  };
+  useEffect(() => {
+    window.addEventListener('keydown', enterGame);
+    return () => {
+      window.removeEventListener('keydown', enterGame);
+    }
+  })
+  const enterGame = e => {
+    if (e.which === 32) {
+      updateScene(MUSIC_COLLECTION);
+    }
+  }
   return (
-    <Lobby
-      onButtonClick={startGame}
-    />
+    <Lobby />
   );
 }
 
