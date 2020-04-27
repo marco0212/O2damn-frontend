@@ -1,6 +1,3 @@
-const canvasWidth = 600;
-const canvasHeight = window.innerHeight - 100;
-
 export default class KeyPad {
   constructor(x, width, keyBind) {
     this.x = x;
@@ -14,16 +11,20 @@ export default class KeyPad {
       this.hitOpacity = 1;
   };
   
-  update (ctx) {
+  update (ctx, canvasHeight) {
     if (this.hitOpacity) {
       this.hitOpacity -= 0.02;
     }
+
     // Pad
-    ctx.fillStyle = 'red';
-    ctx.fillRect(0, canvasHeight - 100, canvasWidth, 30);
+    ctx.fillStyle = '#323232';
+    ctx.fillRect(0, canvasHeight, this.width * (this.x + 1), -70);
+    ctx.fillStyle = '#666';
+    ctx.fillRect(0, canvasHeight, this.width * (this.x + 1), -50);
+
     // Hit indicator
     ctx.fillStyle = `rgba(0, 0, 42, ${this.hitOpacity})`;
-    ctx.fillRect(100 * this.x, 0, this.width, canvasHeight);
+    ctx.fillRect(this.width * this.x, 0, this.width, canvasHeight);
   };
 }
 
