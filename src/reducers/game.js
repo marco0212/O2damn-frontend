@@ -6,6 +6,7 @@ const initialState = {
   maxCombo: 0,
   excellent: 0,
   good: 0,
+  offBeat: 0,
   miss: 0
 };
 

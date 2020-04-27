@@ -1,35 +1,42 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function StatArea() {
+export default function StatArea({
+  songTitle,
+  score,
+  excellent,
+  good,
+  offBeat,
+  miss
+}) {
   return (
     <Wrapper>
-        <StatBox>
-          <h6>Score</h6>
-          <p>12345</p>
-        </StatBox>
-        <StatBox>
-          <h6>Now playing</h6>
-          <p>Let it go</p>
-        </StatBox>
-        <StatBox>
-          <h6>Stats</h6>
-          <ul>
-            <li>
-              <strong>Excellent</strong> 100
-            </li>
-            <li>
-              <strong>Good</strong> 100
-            </li>
-            <li>
-              <strong>Off Beat</strong> 100
-            </li>
-            <li>
-              <strong>Miss</strong> 100
-            </li>
-          </ul>
-        </StatBox>
-      </Wrapper>
+      <StatBox>
+        <h6>Score</h6>
+        <p>{score}</p>
+      </StatBox>
+      <StatBox>
+        <h6>Now playing</h6>
+        <p>{songTitle}</p>
+      </StatBox>
+      <StatBox>
+        <h6>Stats</h6>
+        <ul>
+          <li>
+            <strong>Excellent</strong> {excellent}
+          </li>
+          <li>
+            <strong>Good</strong> {good}
+          </li>
+          <li>
+            <strong>Off Beat</strong> {offBeat}
+          </li>
+          <li>
+            <strong>Miss</strong> {miss}
+          </li>
+        </ul>
+      </StatBox>
+    </Wrapper>
   );
 }
 
@@ -79,6 +86,7 @@ const StatBox = styled.div`
     width: 50%;
     line-height: 29px;
     color: #fff;
+    white-space: nowrap;
   }
 
   & strong {

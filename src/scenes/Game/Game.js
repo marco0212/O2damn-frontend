@@ -4,12 +4,28 @@ import ControlArea from '../../components/ControlArea/ControlArea';
 import VisualArea from '../../components/VisualArea/VisualArea';
 import StatArea from '../../components/StatArea/StatArea';
 
-export default function Game () {
+export default function Game ({
+  song,
+  score,
+  maxCombo,
+  excellent,
+  good,
+  offBeat,
+  miss
+}) {
+  const { title } = song;
   return (
     <Wrapper>
       <ControlArea />
       <VisualArea />
-      <StatArea />
+      <StatArea
+        songTitle={title}
+        score={score}
+        excellent={excellent}
+        good={good}
+        offBeat={offBeat}
+        miss={miss}
+      />
     </Wrapper>
   );
 }
