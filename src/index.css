@@ -35,9 +35,10 @@ html, body, #root {
   height: 100%;
 }
 body {
-	background-color: #f1f1f1;
+  background-color: #f1f1f1;
   line-height: 1.5;
-  font-size: 14px;
+	font-size: 14px;
+	overflow: hidden;
 }
 ol, ul {
 	list-style: none;
