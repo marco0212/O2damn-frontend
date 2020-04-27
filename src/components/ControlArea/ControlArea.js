@@ -1,9 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import GameControl from '../GameControl/Container';
 
 export default function ControlArea() {
   return (
-    <Wrapper>ControlArea</Wrapper>
+    <Wrapper>
+      <GameControl />
+    </Wrapper>
   );
 }
 
