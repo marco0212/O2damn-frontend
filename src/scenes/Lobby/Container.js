@@ -5,25 +5,28 @@ import { updateScene } from '../../actions';
 import { MUSIC_COLLECTION } from '../../constants';
 
 function LobbyContainer({ updateScene }) {
+  const enterGame = e => {
+    const key = e.which;
+    const SPACE_BAR = 32;
+
+    if (key === SPACE_BAR) {
+      updateScene(MUSIC_COLLECTION);
+    }
+  }
+
   useEffect(() => {
     window.addEventListener('keydown', enterGame);
     return () => {
       window.removeEventListener('keydown', enterGame);
     }
-  })
-  const enterGame = e => {
-    if (e.which === 32) {
-      updateScene(MUSIC_COLLECTION);
-    }
-  }
+  });
   return (
     <Lobby />
   );
 }
 
-const mapStateToProps = state => ({});
 const mapDispatchToProps = dispatch => ({
   updateScene: scene => dispatch(updateScene(scene))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LobbyContainer);
+export default connect(null, mapDispatchToProps)(LobbyContainer);
