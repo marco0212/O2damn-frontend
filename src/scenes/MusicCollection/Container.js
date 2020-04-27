@@ -2,14 +2,36 @@ import React, { useEffect } from 'react';
 import MusicCollection from './MusicCollection';
 import { connect } from 'react-redux';
 import { getSongs } from '../../thunks';
-import { updateCurrentSongId, updateScene, updateGameSongId } from '../../actions';
-import { GAME } from '../../constants';
+import { updateCurrentSongId } from '../../actions';
 
-function McContainer({ songs, currentSong, getSongs, activeSong, updateScene, updateGameSongId }) {
-  const startGame = (id) => {
-    updateGameSongId(id);
-    updateScene(GAME);
-  };
+function McContainer({
+  songs,
+  currentSong,
+  getSongs,
+  updateCurrentSongId
+}) {
+  useEffect(() => {
+    const updateCurrentSong = e => {
+      const key = e.which;
+      const UPKEY = 38;
+      const DOWNKEY = 40;
+
+      if (key === UPKEY) {
+        console.log('Up press');
+      } else if (key === DOWNKEY) {
+        console.log('Down press');
+      }
+    };
+
+    if (songs.length && !currentSong.id) {
+      updateCurrentSongId(songs[0].id);
+    }
+
+    window.addEventListener('keydown', updateCurrentSong);
+    return () => {
+      window.removeEventListener('keydown', updateCurrentSong);
+    }
+  }, [songs, currentSong.id, updateCurrentSongId]);
 
   useEffect(() => {
     getSongs();
@@ -18,8 +40,6 @@ function McContainer({ songs, currentSong, getSongs, activeSong, updateScene, up
     <MusicCollection
       songs={songs}
       currentSong={currentSong}
-      onSongItemClick={activeSong}
-      onStartClick={startGame}
     />
   );
 }
@@ -30,9 +50,7 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => ({
   getSongs: () => dispatch(getSongs()),
-  activeSong: id => dispatch(updateCurrentSongId(id)),
-  updateScene: scene => dispatch(updateScene(scene)),
-  updateGameSongId: id => dispatch(updateGameSongId(id))
+  updateCurrentSongId: id => dispatch(updateCurrentSongId(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(McContainer);

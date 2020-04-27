@@ -3,27 +3,24 @@ import styled from 'styled-components';
 
 export default function MusicCollection({
   songs,
-  currentSong,
-  onSongItemClick,
-  onStartClick
+  currentSong
 }) {
   const {
     id: currentSongId,
-    title: currentSongTitle,
     musicThumbnail: currentSongThumb,
     musicUrl: currentSongUrl
   } = currentSong;
   return (
     <Wrapper>
-      <audio autoPlay src={currentSongUrl} />
-      <BgOverlay style={{backgroundImage: `url(https://i2.wp.com/metro.co.uk/wp-content/uploads/2016/09/ad_165364642.jpg)`}}/>
+      <audio src={currentSongUrl} autoPlay />
+      <BgOverlay style={{backgroundImage: `url(${currentSongThumb})`}}/>
       <SongArea>
         <SongList>
           {
             songs.map(song => {
-              const {title, artistName} = song;
+              const { id, title, artistName } = song;
               return (
-                <SongItm>
+                <SongItm key={id} isSelected={currentSongId === id}>
                     <h3>{title}</h3>
                     <p>{artistName}</p>
                 </SongItm>
@@ -61,16 +58,23 @@ const BgOverlay = styled.div`
 `;
 const SongArea = styled.div`
   float: right;
-  padding: 90px 30px;
+  padding: 30px;
 `;
 const SongList = styled.ul`
   width: 600px;
 `;
 const SongItm = styled.li`
   border-radius: 10px;
-  background-color: #fff;
+  background-color: #333;
+  color: #fff;
   padding: 10px 20px;
   margin-bottom: 20px;
+
+  ${props => props.isSelected && (
+      'background-color: #fff;' +
+      'color: #323232;'
+    )
+  }
 
   &:last-child {
     margin-bottom: 0;
