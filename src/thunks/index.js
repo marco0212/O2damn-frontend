@@ -1,4 +1,8 @@
-import { updateSongsPending, updateSongsSuccess, updateSongsFailure } from "../actions";
+import {
+  updateSongsPending,
+  updateSongsSuccess,
+  updateSongsFailure
+} from "../actions";
 import { getSongsAPI } from "../api";
 
 export const getSongs = () => async dispatch => {
