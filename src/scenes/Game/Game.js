@@ -31,7 +31,7 @@ export default function Game ({
 }
 
 const Wrapper = styled.div`
-height: 100%;
+  height: 100%;
   display: grid;
   grid-template-rows: 1fr 90px;
   grid-template-columns: 300px 1fr;

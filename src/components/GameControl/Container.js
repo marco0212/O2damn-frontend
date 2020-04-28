@@ -3,9 +3,9 @@ import GameControl from './GameControl';
 import Note from '../../classes/Note';
 import KeyPad from '../../classes/KeyPad';
 
-const keyNotes = new Array(10).fill().map(() => (
+const keyNotes = new Array(30).fill().map(() => (
     {
-      time: Math.random() * 10,
+      time: Math.random() * 30,
       key: Math.floor(Math.random() * 6) 
     }
   )
@@ -23,14 +23,14 @@ function CanvasContainer() {
     canvas.width = 300;
     canvas.height = window.innerHeight - 90;
 
-    const noteWidth = canvas.width / Bindingkeys.length;
+    const trackWidth = canvas.width / Bindingkeys.length;
     const noteHeight = 15;
     const notes = keyNotes.map(note => {
       const { time, key } = note;
 
-      return new Note(key, time * speed, noteWidth, noteHeight);
+      return new Note(key, time * speed, trackWidth, noteHeight);
     });
-    const keyPads = Bindingkeys.map((key, index) => new KeyPad(index, noteWidth, key));
+    const keyPads = Bindingkeys.map((key, index) => new KeyPad(index, trackWidth, key));
 
     function animation() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);

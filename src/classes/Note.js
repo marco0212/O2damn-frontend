@@ -1,13 +1,16 @@
-const padding = 2;
-const colors = [[255, 87, 34], [0, 188, 212], [246, 215, 67]];
+import { roundRect } from "../utils/drawings";
+
+export const colors = [[255, 87, 34], [0, 188, 212], [246, 215, 67]];
+
+const padding = 3;
 
 export default class Note {
-  constructor(index, y, width, height) {
+  constructor(index, y, trackWidth, noteHeight) {
     this.index = index;
-    this.x = index * width;
+    this.x = index * trackWidth;
     this.y = -y;
-    this.width = width;
-    this.height = height;
+    this.width = trackWidth;
+    this.noteHeight = noteHeight;
     this.then = Date.now();
     this.delta = 0;
 
@@ -34,10 +37,11 @@ export default class Note {
 
   update(ctx, speed) {
     const color = this.color.join(',');
-    
+    const noteStartX = this.x + padding;
+    const noteWidth = this.width - 2 * padding;
     this.setDelta();
     this.y += speed * this.delta;
     ctx.fillStyle = `rgb(${color})`;
-    ctx.fillRect(this.x + padding, this.y, this.width - 2 * padding, this.height);
+    roundRect(ctx, noteStartX, this.y, noteWidth, this.noteHeight, 5, true);
   };
 }
