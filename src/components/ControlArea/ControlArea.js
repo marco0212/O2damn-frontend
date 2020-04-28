@@ -11,7 +11,7 @@ export default function ControlArea() {
 }
 
 const Wrapper = styled.div`
-  background-color: rgba(255, 152, 0, 0.5);
   grid-column: 1;
   grid-row: 1;
+  background-color: rgba(0, 0, 0, .4);
 `;
