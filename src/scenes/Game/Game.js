@@ -11,11 +11,13 @@ export default function Game ({
   excellent,
   good,
   offBeat,
-  miss
+  miss,
+  audioRef
 }) {
-  const { title } = song;
+  const { title, musicUrl } = song;
   return (
     <Wrapper>
+      <audio src={musicUrl} ref={audioRef} />
       <ControlArea />
       <VisualArea />
       <StatArea

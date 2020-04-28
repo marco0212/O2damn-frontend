@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import Game from './Game';
 import { connect } from 'react-redux';
 
@@ -11,6 +11,15 @@ function GameContainer({
   offBeat,
   miss
 }) {
+  const audioRef = useRef(null);
+  
+  useEffect(() => {
+    const audio = audioRef.current;
+
+    setTimeout(() => {
+      audio.play();
+    }, 3000);
+  }, []);
   return (
     <Game
       song={song}
@@ -20,6 +29,7 @@ function GameContainer({
       good={good}
       offBeat={offBeat}
       miss={miss}
+      audioRef={audioRef}
     />
   );
 }
