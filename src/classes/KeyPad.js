@@ -6,6 +6,7 @@ const padBgColor = '#002f58';
 const padHeight = 80;
 const keyHeight = 50;
 const padding = 10;
+const imgHeight = 15;
 
 export default class KeyPad {
   constructor(index, width, keyBind) {
@@ -36,7 +37,7 @@ export default class KeyPad {
     }
   };
 
-  update (ctx, canvasHeight, noteHeight) {
+  update (ctx, canvasHeight) {
     const padStartY = canvasHeight - padHeight;
     const keyWidth = this.width - 2 * padding;
     const keyStartX = this.x + padding;
@@ -63,9 +64,9 @@ export default class KeyPad {
 
     ctx.globalAlpha = 1;
     img.src = stripe;
-    ctx.drawImage(img, this.x, padStartY, this.width, -noteHeight);
+    ctx.drawImage(img, this.x, padStartY, this.width, -imgHeight);
 
-    // Track Border
+    // Track border
     if (this.index) {
       ctx.beginPath();
       ctx.moveTo(this.x, 0);

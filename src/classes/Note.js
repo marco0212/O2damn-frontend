@@ -11,8 +11,6 @@ export default class Note {
     this.y = -y;
     this.width = trackWidth;
     this.noteHeight = noteHeight;
-    this.then = Date.now();
-    this.delta = 0;
 
     switch(index) {
       case 0:
@@ -29,18 +27,12 @@ export default class Note {
     }
   }
 
-  setDelta() {
-    this.now = Date.now();
-    this.delta = (this.now - this.then) / 1000;
-    this.then = this.now;
-  };
-
-  update(ctx, speed) {
+  update(ctx, speed, delta) {
     const color = this.color.join(',');
     const noteStartX = this.x + padding;
     const noteWidth = this.width - 2 * padding;
-    this.setDelta();
-    this.y += speed * this.delta;
+
+    this.y += speed * delta;
     ctx.fillStyle = `rgb(${color})`;
     roundRect(ctx, noteStartX, this.y, noteWidth, this.noteHeight, 5, true);
   };
