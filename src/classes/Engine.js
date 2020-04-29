@@ -6,13 +6,25 @@ export default class Engine {
     this.speed = speed;
     this.notes = notes;
     this.keyPads = keyPads;
+    this.isPlay = false;
+  }
+  togglePlay = (activeCb, deactiveCb) => {
+    if (this.isPlay) {
+      this.pause();
+      deactiveCb();
+    } else {
+      this.play();
+      activeCb();
+    }
   }
 
   pause = () => {
+    this.isPlay = false;
     cancelAnimationFrame(this.animationFrame);
   }
 
   play = () => {
+    this.isPlay = true;
     this.then = Date.now();
     this.frame();
   }
