@@ -31,6 +31,7 @@ function CanvasContainer({
     return new Note(key, time * speed, trackWidth, noteHeight);
   });
   const keyPads = bindingKeys.map((key, index) => new KeyPad(index, trackWidth, key));
+  const engine = new Engine(canvasWidth, canvasHeight, speed, notes, keyPads);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -38,8 +39,8 @@ function CanvasContainer({
 
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
+    engine.setContext(ctx);
 
-    const engine = new Engine(ctx, canvasWidth, canvasHeight, speed, notes, keyPads);
     const playGame = () => {
       playMusic();
       engine.play();
@@ -65,7 +66,7 @@ function CanvasContainer({
       engine.pause();
       window.removeEventListener('keydown', onKeydown);
     };
-  }, [canvasHeight, notes, keyPads, playMusic, pauseMusic, togglePlayingMode]);
+  }, [canvasHeight, notes, keyPads, playMusic, pauseMusic, togglePlayingMode, engine]);
 
   return <GameControl refs={canvasRef} />;
 }

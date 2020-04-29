@@ -1,6 +1,5 @@
 export default class Engine {
-  constructor(ctx, width, height, speed, notes, keyPads) {
-    this.ctx = ctx;
+  constructor(width, height, speed, notes, keyPads) {
     this.width = width;
     this.height = height;
     this.speed = speed;
@@ -8,6 +7,11 @@ export default class Engine {
     this.keyPads = keyPads;
     this.isPlay = false;
   }
+
+  setContext = (ctx) => {
+    this.ctx = ctx;
+  }
+
   togglePlay = (activeCb, deactiveCb) => {
     if (this.isPlay) {
       this.pause();
