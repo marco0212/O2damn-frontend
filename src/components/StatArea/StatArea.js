@@ -41,6 +41,7 @@ export default function StatArea({
 }
 
 const Wrapper = styled.div`
+  position: relative;
   grid-column: 1 / 3;
   grid-row: 2;
   padding: 15px;
@@ -50,6 +51,7 @@ const Wrapper = styled.div`
   color: #ebebeb;
   background: rgb(0,78,146);
   background: linear-gradient(180deg, rgba(0,78,146,1) 19%, rgba(0,4,40,1) 100%);
+  box-shadow: 0px -10px 15px rgba(0, 0, 0, 0.5);
 `;
 const StatBox = styled.div`
   position: relative;
