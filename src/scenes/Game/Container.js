@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Note from '../../classes/Note';
 import KeyPad from '../../classes/KeyPad';
 import Engine from '../../classes/Engine';
+import { updatePlayingMode } from '../../actions';
 
 const keyNotes = new Array(30).fill().map(() => (
   {
@@ -21,7 +22,9 @@ function GameContainer({
   excellent,
   good,
   offBeat,
-  miss
+  miss,
+  isPlayingMode,
+  updatePlayingMode
 }) {
   const audioRef = useRef(null);
   const canvasRef = useRef(null);
@@ -52,8 +55,9 @@ function GameContainer({
       keyPads.forEach(keypad => keypad.keyDown(key));
     } else if (key === ESC) {
       engine.togglePlay(playMusic, pauseMusic);
+      updatePlayingMode();
     }
-  }, [engine, keyPads]);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -70,7 +74,7 @@ function GameContainer({
       pauseEngin();
       window.removeEventListener('keydown', onKeydown);
     };
-  }, [canvasHeight, engine, onKeydown, pauseEngin, playEngin]);
+  }, [onKeydown]);
   return (
     <Game
       song={song}
@@ -82,6 +86,7 @@ function GameContainer({
       miss={miss}
       audioRef={audioRef}
       canvasRef={canvasRef}
+      isPlayingMode={isPlayingMode}
     />
   );
 }
@@ -93,7 +98,11 @@ const mapStateToProps = state => ({
   excellent: state.game.excellent,
   good: state.game.good,
   offBeat: state.game.offBeat,
-  miss: state.game.miss
+  miss: state.game.miss,
+  isPlayingMode: state.ui.isPlayingMode
 });
+const mapDispatchToProps = dispatch => ({
+  updatePlayingMode: () => dispatch(updatePlayingMode())
+})
 
-export default connect(mapStateToProps)(GameContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(GameContainer);

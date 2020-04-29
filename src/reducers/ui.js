@@ -1,4 +1,4 @@
-import { UPDATE_SCENE, LOBBY, TOGGLE_UPDATE_PLAYING_MODE } from "../constants";
+import { UPDATE_SCENE, LOBBY, UPDATE_PLAYING_MODE } from "../constants";
 
 const initialState = {
   currentScene: LOBBY,
@@ -13,7 +13,7 @@ export default function(state = initialState, action) {
         currentScene: action.payload
       };
 
-    case TOGGLE_UPDATE_PLAYING_MODE:
+    case UPDATE_PLAYING_MODE:
       return {
         ...state,
         isPlayingMode: !state.isPlayingMode
