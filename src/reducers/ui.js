@@ -2,9 +2,7 @@ import { UPDATE_SCENE, LOBBY, TOGGLE_UPDATE_PLAYING_MODE } from "../constants";
 
 const initialState = {
   currentScene: LOBBY,
-  game: {
-    isPlayingMode: true
-  }
+  isPlayingMode: true
 };
 
 export default function(state = initialState, action) {
@@ -18,11 +16,9 @@ export default function(state = initialState, action) {
     case TOGGLE_UPDATE_PLAYING_MODE:
       return {
         ...state,
-        game: {
-          ...state.game,
-          isPlayingMode: !state.game.isPlayingMode
-        }
+        isPlayingMode: !state.isPlayingMode
       };
+
     default:
       return {
         ...state
