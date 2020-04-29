@@ -13,16 +13,14 @@ export default function Game ({
   offBeat,
   miss,
   audioRef,
-  playMusic,
-  pauseMusic
+  canvasRef
 }) {
   const { title, musicUrl } = song;
   return (
     <Wrapper>
       <audio src={musicUrl} ref={audioRef} />
       <ControlArea
-        playMusic={playMusic}
-        pauseMusic={pauseMusic}
+        canvasRef={canvasRef}
       />
       <VisualArea />
       <StatArea

@@ -2,15 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import GameControl from '../GameControl/Container';
 
-export default function ControlArea({
-  playMusic,
-  pauseMusic
-}) {
+export default function ControlArea({ canvasRef }) {
   return (
     <Wrapper>
       <GameControl
-        playMusic={playMusic}
-        pauseMusic={pauseMusic}
+        canvasRef={canvasRef}
       />
     </Wrapper>
   );

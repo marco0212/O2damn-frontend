@@ -1,6 +1,18 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import Game from './Game';
 import { connect } from 'react-redux';
+import Note from '../../classes/Note';
+import KeyPad from '../../classes/KeyPad';
+import Engine from '../../classes/Engine';
+
+const keyNotes = new Array(30).fill().map(() => (
+  {
+    time: Math.random() * 30,
+    key: Math.floor(Math.random() * 6) 
+  }
+)
+);
+const bindingKeys = [83, 68, 70, 74, 75, 76];
 
 function GameContainer({
   song,
@@ -12,8 +24,53 @@ function GameContainer({
   miss
 }) {
   const audioRef = useRef(null);
+  const canvasRef = useRef(null);
+  const canvasWidth = 300;
+  const canvasHeight = window.innerHeight - 90;
+  const speed = 300;
+  const trackWidth = canvasWidth / bindingKeys.length;
+  const noteHeight = 15;
+  const notes = keyNotes.map(note => {
+    const { time, key } = note;
+    return new Note(key, time * speed, trackWidth, noteHeight);
+  });
+  const keyPads = bindingKeys.map((key, index) => new KeyPad(index, trackWidth, key));
+  const engine = new Engine(canvasWidth, canvasHeight, speed, notes, keyPads);
+
   const playMusic = () => audioRef.current.play();
   const pauseMusic = () => audioRef.current.pause();
+  const playEngin = useCallback(() => engine.play(), [engine]);
+  const pauseEngin = useCallback(() => engine.pause(), [engine]);
+  const onKeydown = useCallback((e) => {
+    const key = e.which;
+    const ESC = 27;
+    const isBindingKeyPressed = bindingKeys
+      .filter(bindingKey => bindingKey === key)
+      .length;
+
+    if (isBindingKeyPressed) {
+      keyPads.forEach(keypad => keypad.keyDown(key));
+    } else if (key === ESC) {
+      engine.togglePlay(playMusic, pauseMusic);
+    }
+  }, [engine, keyPads]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+    engine.setContext(ctx);
+    playEngin();
+    playMusic();
+
+    window.addEventListener('keydown', onKeydown);
+    return () => {
+      pauseEngin();
+      window.removeEventListener('keydown', onKeydown);
+    };
+  }, [canvasHeight, engine, onKeydown, pauseEngin, playEngin]);
   return (
     <Game
       song={song}
@@ -24,8 +81,7 @@ function GameContainer({
       offBeat={offBeat}
       miss={miss}
       audioRef={audioRef}
-      playMusic={playMusic}
-      pauseMusic={pauseMusic}
+      canvasRef={canvasRef}
     />
   );
 }
