@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ControlArea from '../../components/ControlArea/ControlArea';
 import VisualArea from '../../components/VisualArea/VisualArea';
 import StatArea from '../../components/StatArea/StatArea';
+import Modal from '../../components/Modal/Container';
 
 export default function Game ({
   song,
@@ -14,13 +15,14 @@ export default function Game ({
   miss,
   audioRef,
   canvasRef,
-  isPlayingMode
+  isPlayingMode,
+  confirmLeave
 }) {
   const { title, musicUrl } = song;
   return (
     <Wrapper>
       {
-        !isPlayingMode && 'Now Pause'
+        !isPlayingMode && <Modal confirmLeave={confirmLeave} />
       }
       <audio src={musicUrl} ref={audioRef} />
       <ControlArea
