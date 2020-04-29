@@ -4,6 +4,7 @@ import Note from '../../classes/Note';
 import KeyPad from '../../classes/KeyPad';
 import Engine from '../../classes/Engine';
 import { connect } from 'react-redux';
+import { togglePlayingMode } from '../../actions';
 
 const keyNotes = new Array(30).fill().map(() => (
     {
@@ -16,7 +17,8 @@ const bindingKeys = [83, 68, 70, 74, 75, 76];
 
 function CanvasContainer({
   playMusic,
-  pauseMusic
+  pauseMusic,
+  togglePlayingMode
 }) {
   const canvasRef = useRef(null);
   const canvasWidth = 300;
@@ -53,6 +55,7 @@ function CanvasContainer({
         keyPads.forEach(keypad => keypad.keyDown(key));
       } else if (key === ESC) {
         engine.togglePlay(playMusic, pauseMusic);
+        togglePlayingMode();
       }
     }
 
@@ -62,9 +65,13 @@ function CanvasContainer({
       engine.pause();
       window.removeEventListener('keydown', onKeydown);
     };
-  }, [canvasHeight, notes, keyPads, playMusic, pauseMusic]);
+  }, [canvasHeight, notes, keyPads, playMusic, pauseMusic, togglePlayingMode]);
 
   return <GameControl refs={canvasRef} />;
 }
 
-export default connect()(CanvasContainer);
+const mapDispatchToProps = dispatch => ({
+  togglePlayingMode: () => dispatch(togglePlayingMode())
+});
+
+export default connect(null, mapDispatchToProps)(CanvasContainer);

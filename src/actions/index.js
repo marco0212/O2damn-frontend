@@ -5,12 +5,16 @@ import {
   UPDATE_SONGS_FAILURE,
   UPDATE_GAME_SONG_ID,
   INCREASE_CURRENT_SONG_INDEX,
-  DECREASE_CURRENT_SONG_INDEX
+  DECREASE_CURRENT_SONG_INDEX,
+  TOGGLE_UPDATE_PLAYING_MODE
 } from '../constants';
 
 export const updateScene = scene => ({
   type: UPDATE_SCENE,
   payload: scene
+});
+export const togglePlayingMode = () => ({
+  type: TOGGLE_UPDATE_PLAYING_MODE
 });
 
 export const updateSongsPending = () => ({
