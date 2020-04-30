@@ -28,18 +28,20 @@ function GameContainer({
   updatePlayingMode,
   updateScene
 }) {
-  const audioRef = useRef(null);
-  const canvasRef = useRef(null);
   const canvasWidth = 300;
   const canvasHeight = window.innerHeight - 90;
   const speed = 300;
   const trackWidth = canvasWidth / bindingKeys.length;
   const noteHeight = 15;
-  const notes = keyNotes.map(note => {
+  const audioRef = useRef(null);
+  const canvasRef = useRef(null);
+  const notesRef = useRef(keyNotes.map(note => {
     const { time, key } = note;
     return new Note(key, time * speed, trackWidth, noteHeight);
-  });
-  const keyPads = bindingKeys.map((key, index) => new KeyPad(index, trackWidth, key));
+  }));
+  const keyPadsRef = useRef(bindingKeys.map((key, index) => new KeyPad(index, trackWidth, key)));
+  const notes = notesRef.current;
+  const keyPads = keyPadsRef.current;
   const engineRef = useRef(new Engine(canvasWidth, canvasHeight, speed, notes, keyPads));
   const engine = engineRef.current;
 
@@ -47,18 +49,19 @@ function GameContainer({
   const pauseMusic = () => audioRef.current.pause();
   const playEngin = useCallback(() => engine.play(), [engine]);
   const pauseEngin = useCallback(() => engine.pause(), [engine]);
-  const togglePlay = () => {
+  const togglePlay = useCallback(() => {
     engine.togglePlay(playMusic, pauseMusic);
     updatePlayingMode();
-  }
+  }, [engine, updatePlayingMode]);
   const confirmLeave = wannaLeave => {
     if (wannaLeave) {
       updateScene(MUSIC_COLLECTION);
-      updatePlayingMode();
     } else {
-      togglePlay();
+      engine.togglePlay(playMusic, pauseMusic);
     }
-  }
+
+    updatePlayingMode();
+  };
   const onKeydown = useCallback((e) => {
     const key = e.which;
     const ESC = 27;
@@ -71,7 +74,7 @@ function GameContainer({
     } else if (key === ESC) {
       togglePlay();
     }
-  }, []);
+  }, [keyPads, togglePlay]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -88,7 +91,7 @@ function GameContainer({
       pauseEngin();
       window.removeEventListener('keydown', onKeydown);
     };
-  }, [onKeydown]);
+  }, [canvasHeight, engine, pauseEngin, playEngin, onKeydown]);
   return (
     <Game
       song={song}
