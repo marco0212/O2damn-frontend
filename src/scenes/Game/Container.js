@@ -44,23 +44,24 @@ function GameContainer({
   const engine = engineRef.current;
   const gameStartTimeRef = useRef(Date.now() + delay * 1000);
   const gameStartTime = gameStartTimeRef.current;
+  let timer = useRef(null);
 
-  const playMusic = (delay) => {
+  const playMusic = useCallback((delay) => {
     if (delay) {
-      setTimeout(() => {
+      timer.current = setTimeout(() => {
         audioRef.current.play();
       }, delay);
     } else {
       audioRef.current.play();
     }
-  };
+  }, []);
   const pauseMusic = () => audioRef.current.pause();
   const playEngin = useCallback(() => engine.play(), [engine]);
   const pauseEngin = useCallback(() => engine.pause(), [engine]);
   const togglePlay = useCallback(() => {
     engine.togglePlay(playMusic, pauseMusic);
     updatePlayingMode();
-  }, [engine, updatePlayingMode]);
+  }, [engine, updatePlayingMode, playMusic]);
   const confirmLeave = wannaLeave => {
     if (wannaLeave) {
       updateScene(MUSIC_COLLECTION);
@@ -101,9 +102,10 @@ function GameContainer({
     window.addEventListener('keydown', onKeydown);
     return () => {
       pauseEngin();
+      clearTimeout(timer.current);
       window.removeEventListener('keydown', onKeydown);
     };
-  }, [canvasHeight, engine, pauseEngin, playEngin, onKeydown]);
+  }, [canvasHeight, engine, pauseEngin, playEngin, onKeydown, playMusic]);
   return (
     <Game
       song={song}
