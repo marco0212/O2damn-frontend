@@ -22,7 +22,7 @@ function ModalContainer({ confirmLeave }) {
     return () => {
       window.removeEventListener('keydown', onKeydown);
     };
-  }, [isSelectLeave]);
+  }, [isSelectLeave, confirmLeave]);
 
   return (
     <Modal
