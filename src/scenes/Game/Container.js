@@ -7,13 +7,9 @@ import Engine from '../../classes/Engine';
 import { updatePlayingMode, updateScene } from '../../actions';
 import { MUSIC_COLLECTION } from '../../constants';
 
-const keyNotes = new Array(30).fill().map(() => (
-  {
-    time: Math.random() * 30,
-    key: Math.floor(Math.random() * 6) 
-  }
-)
-);
+const keyNotes = new Array(5).fill().map((ele, index) => (
+    { time: index, key: Math.floor(Math.random() * 6) }
+));
 const bindingKeys = [83, 68, 70, 74, 75, 76];
 
 function GameContainer({
@@ -30,20 +26,24 @@ function GameContainer({
 }) {
   const canvasWidth = 300;
   const canvasHeight = window.innerHeight - 90;
-  const speed = 300;
-  const trackWidth = canvasWidth / bindingKeys.length;
+  const padHeight = 80;
   const noteHeight = 15;
+  const delaySec = 5;
+  const speed = 100;
+  const trackWidth = canvasWidth / bindingKeys.length;
   const audioRef = useRef(null);
   const canvasRef = useRef(null);
   const notesRef = useRef(keyNotes.map(note => {
     const { time, key } = note;
-    return new Note(key, time * speed, trackWidth, noteHeight);
+    return new Note(key, time, speed, delaySec, trackWidth, noteHeight);
   }));
-  const keyPadsRef = useRef(bindingKeys.map((key, index) => new KeyPad(index, trackWidth, key)));
+  const keyPadsRef = useRef(bindingKeys.map((key, index) => new KeyPad(index, trackWidth, padHeight, key)));
   const notes = notesRef.current;
   const keyPads = keyPadsRef.current;
   const engineRef = useRef(new Engine(canvasWidth, canvasHeight, speed, notes, keyPads));
   const engine = engineRef.current;
+
+  let gameStartTime = Date.now();
 
   const playMusic = () => audioRef.current.play();
   const pauseMusic = () => audioRef.current.pause();
@@ -63,20 +63,28 @@ function GameContainer({
     updatePlayingMode();
   };
   const onKeydown = useCallback((e) => {
-    const key = e.which;
+    const pressedKey = e.which;
     const ESC = 27;
     const isBindingKeyPressed = bindingKeys
-      .filter(bindingKey => bindingKey === key)
+      .filter(bindingKey => bindingKey === pressedKey)
       .length;
 
     if (isBindingKeyPressed) {
-      keyPads.forEach(keypad => keypad.keyDown(key));
-    } else if (key === ESC) {
+      keyPads.forEach(keypad => keypad.keyDown(pressedKey));
+      const key = bindingKeys.indexOf(pressedKey);
+      const time = (Date.now() - gameStartTime) / 1000;
+
+      console.log(key, time);
+    } else if (pressedKey === ESC) {
       togglePlay();
     }
-  }, [keyPads, togglePlay]);
+  }, [keyPads, togglePlay, gameStartTime]);
 
   useEffect(() => {
+    let count = 0;
+    setInterval(() => {
+      console.log(++count);
+    }, 1000);
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
 

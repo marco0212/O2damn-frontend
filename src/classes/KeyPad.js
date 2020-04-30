@@ -3,16 +3,16 @@ import { roundRect } from '../utils/drawings';
 import { colors } from './Note';
 
 const padBgColor = '#002f58';
-const padHeight = 80;
 const keyHeight = 50;
 const padding = 10;
 const imgHeight = 15;
 
 export default class KeyPad {
-  constructor(index, width, keyBind) {
+  constructor(index, width, height, keyBind) {
     this.index = index;
     this.x = index * width;
     this.width = width;
+    this.height = height;
     this.keyBind = keyBind;
     this.hitOpacity = 0;
     
@@ -38,7 +38,7 @@ export default class KeyPad {
   };
 
   update (ctx, canvasHeight) {
-    const padStartY = canvasHeight - padHeight;
+    const padStartY = canvasHeight - this.height;
     const keyWidth = this.width - 2 * padding;
     const keyStartX = this.x + padding;
     const keyStartY = this.index === 1 || this.index === 4 ? (
@@ -76,7 +76,7 @@ export default class KeyPad {
 
     // Pad bg
     ctx.fillStyle = padBgColor;
-    ctx.fillRect(this.x, canvasHeight, this.width, -padHeight);
+    ctx.fillRect(this.x, canvasHeight - this.height, this.width, this.height);
 
     // Pad key
     ctx.fillStyle = `rgba(${this.color.join(',')}, ${this.hitOpacity})`;
