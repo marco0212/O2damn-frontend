@@ -28,24 +28,32 @@ function GameContainer({
   const canvasHeight = window.innerHeight - 90;
   const padHeight = 80;
   const noteHeight = 15;
-  const delaySec = 5;
+  const delay = 5;
   const speed = 100;
   const trackWidth = canvasWidth / bindingKeys.length;
   const audioRef = useRef(null);
   const canvasRef = useRef(null);
   const notesRef = useRef(keyNotes.map(note => {
     const { time, key } = note;
-    return new Note(key, time, speed, delaySec, trackWidth, noteHeight);
+    return new Note(key, time, speed, delay, trackWidth, noteHeight);
   }));
   const keyPadsRef = useRef(bindingKeys.map((key, index) => new KeyPad(index, trackWidth, padHeight, key)));
   const notes = notesRef.current;
   const keyPads = keyPadsRef.current;
   const engineRef = useRef(new Engine(canvasWidth, canvasHeight, speed, notes, keyPads));
   const engine = engineRef.current;
+  const gameStartTimeRef = useRef(Date.now() + delay * 1000);
+  const gameStartTime = gameStartTimeRef.current;
 
-  let gameStartTime = Date.now();
-
-  const playMusic = () => audioRef.current.play();
+  const playMusic = (delay) => {
+    if (delay) {
+      setTimeout(() => {
+        audioRef.current.play();
+      }, delay);
+    } else {
+      audioRef.current.play();
+    }
+  };
   const pauseMusic = () => audioRef.current.pause();
   const playEngin = useCallback(() => engine.play(), [engine]);
   const pauseEngin = useCallback(() => engine.pause(), [engine]);
@@ -81,10 +89,6 @@ function GameContainer({
   }, [keyPads, togglePlay, gameStartTime]);
 
   useEffect(() => {
-    let count = 0;
-    setInterval(() => {
-      console.log(++count);
-    }, 1000);
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
 
@@ -92,7 +96,7 @@ function GameContainer({
     canvas.height = canvasHeight;
     engine.setContext(ctx);
     playEngin();
-    playMusic();
+    playMusic(delay * 1000);
 
     window.addEventListener('keydown', onKeydown);
     return () => {
