@@ -1,5 +1,5 @@
 export default class Engine {
-  constructor(width, height, speed, notes, keyPads, onMiss) {
+  constructor(width, height, speed, delay, notes, keyPads, onMiss, onScore) {
     this.width = width;
     this.height = height;
     this.speed = speed;
@@ -7,6 +7,9 @@ export default class Engine {
     this.keyPads = keyPads;
     this.isPlay = false;
     this.onMiss = onMiss;
+    this.onScore = onScore;
+    this.playingTime = -delay * 1000;
+    this.timer = null;
   }
 
   setContext = (ctx) => {
@@ -24,11 +27,19 @@ export default class Engine {
   }
 
   pause = () => {
-    this.isPlay = false;
+    clearInterval(this.timer);
     cancelAnimationFrame(this.animationFrame);
+    this.timer = null;
+    this.isPlay = false;
   }
 
   play = () => {
+    if (!this.timer) {
+      this.timer = setInterval(() => {
+        this.playingTime += 10;
+      }, 10);
+    }
+
     this.isPlay = true;
     this.then = Date.now();
     this.frame();
@@ -46,8 +57,20 @@ export default class Engine {
     this.then = this.now;
   }
 
-  keyDown(key) {
-    this.keyPads.forEach(keypad => keypad.keyDown(key));
+  keyDown(pressedKey) {
+    const detectedNote = this.notes.find(note => note.key === pressedKey);
+    const noteIndex = this.notes.indexOf(detectedNote);
+
+    if (noteIndex >= 0) {
+      const diffTime = Math.abs(detectedNote.time - this.playingTime / 1000);
+
+      if (diffTime < 0.3) {
+        this.notes.splice(noteIndex, 1);
+        this.onScore(diffTime);
+      }
+    }
+
+    this.keyPads.forEach(keypad => keypad.keyDown(pressedKey));
   }
 
   update = () => {

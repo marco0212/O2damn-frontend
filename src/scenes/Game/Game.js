@@ -35,6 +35,7 @@ export default function Game ({
         excellent={excellent}
         good={good}
         offBeat={offBeat}
+        maxCombo={maxCombo}
         miss={miss}
       />
     </Wrapper>

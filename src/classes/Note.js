@@ -6,13 +6,15 @@ const canvasHeight = window.innerHeight - 90;
 const padHeight = 80;
 
 export default class Note {
-  constructor(index, time, speed, delay, trackWidth, noteHeight) {
+  constructor(index, time, speed, delay, trackWidth, noteHeight, key) {
     const noteMaxY = canvasHeight - padHeight - noteHeight;
     this.index = index;
+    this.time = time;
     this.x = index * trackWidth;
     this.y = -(time + delay) * speed  + noteMaxY;
     this.width = trackWidth;
     this.noteHeight = noteHeight;
+    this.key = key;
 
     switch(index) {
       case 0:

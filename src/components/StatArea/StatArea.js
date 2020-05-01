@@ -7,6 +7,7 @@ export default function StatArea({
   excellent,
   good,
   offBeat,
+  maxCombo,
   miss
 }) {
   return (

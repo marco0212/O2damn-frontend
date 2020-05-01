@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Note from '../../classes/Note';
 import KeyPad from '../../classes/KeyPad';
 import Engine from '../../classes/Engine';
-import { updatePlayingMode, updateScene, updateMiss } from '../../actions';
+import { updatePlayingMode, updateScene, updateMiss, updateStats } from '../../actions';
 import { MUSIC_COLLECTION } from '../../constants';
 
 const keyNotes = new Array(5).fill().map((ele, index) => (
@@ -19,29 +19,31 @@ function GameContainer({
   excellent,
   good,
   offBeat,
+  maxCombo,
   miss,
   isPlayingMode,
   updatePlayingMode,
   updateScene,
-  updateMiss
+  updateMiss,
+  updateStats
 }) {
   const canvasWidth = 300;
   const canvasHeight = window.innerHeight - 90;
   const padHeight = 80;
   const noteHeight = 15;
   const delay = 5;
-  const speed = 100;
+  const speed = 200;
   const trackWidth = canvasWidth / bindingKeys.length;
   const audioRef = useRef(null);
   const canvasRef = useRef(null);
   const notesRef = useRef(keyNotes.map(note => {
     const { time, key } = note;
-    return new Note(key, time, speed, delay, trackWidth, noteHeight);
+    return new Note(key, time, speed, delay, trackWidth, noteHeight, bindingKeys[key]);
   }));
   const keyPadsRef = useRef(bindingKeys.map((key, index) => new KeyPad(index, trackWidth, padHeight, key)));
   const notes = notesRef.current;
   const keyPads = keyPadsRef.current;
-  const engineRef = useRef(new Engine(canvasWidth, canvasHeight, speed, notes, keyPads, updateMiss));
+  const engineRef = useRef(new Engine(canvasWidth, canvasHeight, speed, delay, notes, keyPads, updateMiss, updateStats));
   const engine = engineRef.current;
   const playMusicTimer = useRef(null);
 
@@ -109,6 +111,7 @@ function GameContainer({
       excellent={excellent}
       good={good}
       offBeat={offBeat}
+      maxCombo={maxCombo}
       miss={miss}
       audioRef={audioRef}
       canvasRef={canvasRef}
@@ -125,13 +128,15 @@ const mapStateToProps = state => ({
   excellent: state.game.excellent,
   good: state.game.good,
   offBeat: state.game.offBeat,
+  maxCombo: state.game.maxCombo,
   miss: state.game.miss,
   isPlayingMode: state.ui.isPlayingMode
 });
 const mapDispatchToProps = dispatch => ({
   updateScene: scene => dispatch(updateScene(scene)),
   updatePlayingMode: () => dispatch(updatePlayingMode()),
-  updateMiss: () => dispatch(updateMiss())
+  updateMiss: () => dispatch(updateMiss()),
+  updateStats: timeGap => dispatch(updateStats(timeGap))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameContainer);

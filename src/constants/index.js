@@ -15,3 +15,4 @@ export const RESULT = 'RESULT';
 export const LOBBY = 'LOBBY';
 
 export const UPDATE_MISS = 'UPDATE_MISS';
+export const UPDATE_STATS = 'UPDATE_STATS';
