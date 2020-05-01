@@ -7,9 +7,9 @@ import Engine from '../../classes/Engine';
 import { updatePlayingMode, updateScene, updateMiss, updateStats } from '../../actions';
 import { MUSIC_COLLECTION } from '../../constants';
 
-const keyNotes = new Array(5).fill().map((ele, index) => (
-    { time: index, key: Math.floor(Math.random() * 6) }
-));
+const keyNotes = new Array(30).fill().map((ele, index) => (
+    { time: Math.random() * 15, key: Math.floor(Math.random() * 6) }
+)).sort((a, b) => a.time - b.time);
 const bindingKeys = [83, 68, 70, 74, 75, 76];
 
 function GameContainer({
