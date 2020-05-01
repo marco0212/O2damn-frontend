@@ -30,13 +30,21 @@ export default function(state = initialState, action) {
       const timeGap = action.payload;
       const updateCombo = state.combo + 1;
       const nextState = Object.assign({}, state);
+      const scoreTable = {
+        offBeat: 30,
+        good: 50,
+        excellent: 60
+      };
 
       if (timeGap > 0.2) {
         nextState.offBeat += 1;
+        nextState.score += updateCombo * scoreTable.offBeat;
       } else if (timeGap > 0.1) {
         nextState.good += 1;
+        nextState.score += updateCombo * scoreTable.good;
       } else {
         nextState.excellent += 1;
+        nextState.score += updateCombo * scoreTable.excellent;
       }
 
       return {
