@@ -79,15 +79,15 @@ function GameContainer({
       .length;
 
     if (isBindingKeyPressed) {
-      keyPads.forEach(keypad => keypad.keyDown(pressedKey));
       const key = bindingKeys.indexOf(pressedKey);
       const time = (Date.now() - gameStartTime) / 1000;
 
       console.log(key, time);
+      engine.keyDown(pressedKey);
     } else if (pressedKey === ESC) {
       togglePlay();
     }
-  }, [keyPads, togglePlay, gameStartTime]);
+  }, [engine, togglePlay, gameStartTime]);
 
   useEffect(() => {
     const canvas = canvasRef.current;

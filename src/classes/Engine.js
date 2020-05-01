@@ -45,6 +45,10 @@ export default class Engine {
     this.then = this.now;
   }
 
+  keyDown(key) {
+    this.keyPads.forEach(keypad => keypad.keyDown(key));
+  }
+
   update = () => {
     this.ctx.clearRect(0, 0, this.width, this.height);
 
