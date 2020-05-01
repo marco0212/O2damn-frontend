@@ -1,11 +1,12 @@
 export default class Engine {
-  constructor(width, height, speed, notes, keyPads) {
+  constructor(width, height, speed, notes, keyPads, onMiss) {
     this.width = width;
     this.height = height;
     this.speed = speed;
     this.notes = notes;
     this.keyPads = keyPads;
     this.isPlay = false;
+    this.onMiss = onMiss;
   }
 
   setContext = (ctx) => {
@@ -55,7 +56,7 @@ export default class Engine {
     for (let i = 0; i < this.notes.length; i++) {
       if (this.notes[i].isMiss) {
         this.notes = this.notes.slice(i + 1);
-        console.log('Miss');
+        this.onMiss();
       }
     }
 

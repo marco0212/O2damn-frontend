@@ -6,7 +6,8 @@ import {
   UPDATE_GAME_SONG_ID,
   INCREASE_CURRENT_SONG_INDEX,
   DECREASE_CURRENT_SONG_INDEX,
-  UPDATE_PLAYING_MODE
+  UPDATE_PLAYING_MODE,
+  UPDATE_MISS
 } from '../constants';
 
 export const updateScene = scene => ({
@@ -39,4 +40,8 @@ export const decreaseCurrentSongIndex = () => ({
 export const updateGameSongId = id => ({
   type: UPDATE_GAME_SONG_ID,
   payload: id
+});
+
+export const updateMiss = () => ({
+  type: UPDATE_MISS
 });

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Note from '../../classes/Note';
 import KeyPad from '../../classes/KeyPad';
 import Engine from '../../classes/Engine';
-import { updatePlayingMode, updateScene } from '../../actions';
+import { updatePlayingMode, updateScene, updateMiss } from '../../actions';
 import { MUSIC_COLLECTION } from '../../constants';
 
 const keyNotes = new Array(5).fill().map((ele, index) => (
@@ -15,14 +15,15 @@ const bindingKeys = [83, 68, 70, 74, 75, 76];
 function GameContainer({
   song,
   score,
-  maxCombo,
+  combo,
   excellent,
   good,
   offBeat,
   miss,
   isPlayingMode,
   updatePlayingMode,
-  updateScene
+  updateScene,
+  updateMiss
 }) {
   const canvasWidth = 300;
   const canvasHeight = window.innerHeight - 90;
@@ -40,15 +41,13 @@ function GameContainer({
   const keyPadsRef = useRef(bindingKeys.map((key, index) => new KeyPad(index, trackWidth, padHeight, key)));
   const notes = notesRef.current;
   const keyPads = keyPadsRef.current;
-  const engineRef = useRef(new Engine(canvasWidth, canvasHeight, speed, notes, keyPads));
+  const engineRef = useRef(new Engine(canvasWidth, canvasHeight, speed, notes, keyPads, updateMiss));
   const engine = engineRef.current;
-  const gameStartTimeRef = useRef(Date.now() + delay * 1000);
-  const gameStartTime = gameStartTimeRef.current;
-  let timer = useRef(null);
+  const playMusicTimer = useRef(null);
 
   const playMusic = useCallback((delay) => {
     if (delay) {
-      timer.current = setTimeout(() => {
+      playMusicTimer.current = setTimeout(() => {
         audioRef.current.play();
       }, delay);
     } else {
@@ -79,15 +78,11 @@ function GameContainer({
       .length;
 
     if (isBindingKeyPressed) {
-      const key = bindingKeys.indexOf(pressedKey);
-      const time = (Date.now() - gameStartTime) / 1000;
-
-      console.log(key, time);
       engine.keyDown(pressedKey);
     } else if (pressedKey === ESC) {
       togglePlay();
     }
-  }, [engine, togglePlay, gameStartTime]);
+  }, [engine, togglePlay]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -102,7 +97,7 @@ function GameContainer({
     window.addEventListener('keydown', onKeydown);
     return () => {
       pauseEngin();
-      clearTimeout(timer.current);
+      clearTimeout(playMusicTimer.current);
       window.removeEventListener('keydown', onKeydown);
     };
   }, [canvasHeight, engine, pauseEngin, playEngin, onKeydown, playMusic]);
@@ -110,7 +105,7 @@ function GameContainer({
     <Game
       song={song}
       score={score}
-      maxCombo={maxCombo}
+      combo={combo}
       excellent={excellent}
       good={good}
       offBeat={offBeat}
@@ -126,7 +121,7 @@ function GameContainer({
 const mapStateToProps = state => ({
   song: state.song.songById[state.game.currentSongId],
   score: state.game.score,
-  maxCombo: state.game.maxCombo,
+  combo: state.game.combo,
   excellent: state.game.excellent,
   good: state.game.good,
   offBeat: state.game.offBeat,
@@ -135,7 +130,8 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => ({
   updateScene: scene => dispatch(updateScene(scene)),
-  updatePlayingMode: () => dispatch(updatePlayingMode())
+  updatePlayingMode: () => dispatch(updatePlayingMode()),
+  updateMiss: () => dispatch(updateMiss())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameContainer);
