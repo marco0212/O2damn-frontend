@@ -47,6 +47,14 @@ export default class Engine {
 
   update = () => {
     this.ctx.clearRect(0, 0, this.width, this.height);
+
+    for (let i = 0; i < this.notes.length; i++) {
+      if (this.notes[i].isMiss) {
+        this.notes = this.notes.slice(i + 1);
+        console.log('Miss');
+      }
+    }
+
     this.notes.forEach(note => note.update(this.ctx, this.speed, this.delta));
     this.keyPads.forEach(keypad => keypad.update(this.ctx, this.height));
   }
