@@ -36,8 +36,8 @@ export default class Engine {
   play = () => {
     if (!this.timer) {
       this.timer = setInterval(() => {
-        this.playingTime += 10;
-      }, 10);
+        this.playingTime += 50;
+      }, 50);
     }
 
     this.isPlay = true;

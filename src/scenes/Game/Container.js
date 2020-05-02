@@ -7,8 +7,8 @@ import Engine from '../../classes/Engine';
 import { updatePlayingMode, updateScene, updateMiss, updateStats } from '../../actions';
 import { MUSIC_COLLECTION } from '../../constants';
 
-const keyNotes = new Array(30).fill().map((ele, index) => (
-    { time: Math.random() * 15, key: Math.floor(Math.random() * 6) }
+const keyNotes = new Array(20).fill().map((ele, index) => (
+    { time: Math.random().toFixed(3) * 20, key: Math.floor(Math.random() * 6) }
 )).sort((a, b) => a.time - b.time);
 const bindingKeys = [83, 68, 70, 74, 75, 76];
 
@@ -32,7 +32,7 @@ function GameContainer({
   const padHeight = 80;
   const noteHeight = 15;
   const delay = 5;
-  const speed = 200;
+  const speed = 500;
   const trackWidth = canvasWidth / bindingKeys.length;
   const audioRef = useRef(null);
   const canvasRef = useRef(null);
