@@ -16,7 +16,7 @@ export default function(state = initialState, action) {
   switch(action.type) {
     case UPDATE_GAME_SONG_ID:
       return {
-        ...state,
+        ...initialState,
         currentSongId: action.payload
       };
 
