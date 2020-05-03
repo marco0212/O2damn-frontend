@@ -16,7 +16,8 @@ export default function Game ({
   audioRef,
   canvasRef,
   isPlayingMode,
-  confirmLeave
+  confirmLeave,
+  onAudioLoad
 }) {
   const { title, musicUrl } = song;
   return (
@@ -24,7 +25,7 @@ export default function Game ({
       {
         !isPlayingMode && <Modal confirmLeave={confirmLeave} />
       }
-      <audio src={musicUrl} ref={audioRef} />
+      <audio src={musicUrl} ref={audioRef} onLoadedData={onAudioLoad}/>
       <ControlArea
         canvasRef={canvasRef}
       />

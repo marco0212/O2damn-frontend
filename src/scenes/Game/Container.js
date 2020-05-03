@@ -1,11 +1,11 @@
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useRef, useEffect, useCallback, useState } from 'react';
 import Game from './Game';
 import { connect } from 'react-redux';
 import Note from '../../classes/Note';
 import KeyPad from '../../classes/KeyPad';
 import Engine from '../../classes/Engine';
 import { updatePlayingMode, updateScene, updateMiss, updateStats } from '../../actions';
-import { MUSIC_COLLECTION } from '../../constants';
+import { MUSIC_COLLECTION, RESULT } from '../../constants';
 
 const keyNotes = new Array(20).fill().map((ele, index) => (
     { time: Math.random().toFixed(3) * 20, key: Math.floor(Math.random() * 6) }
@@ -21,11 +21,12 @@ function GameContainer({
   updateMiss,
   updateStats
 }) {
+  const [duration, setDuration] = useState(0);
   const canvasWidth = 300;
   const canvasHeight = window.innerHeight - 90;
   const padHeight = 80;
   const noteHeight = 15;
-  const delay = 5;
+  const delay = 3;
   const speed = 500;
   const trackWidth = canvasWidth / bindingKeys.length;
   const audioRef = useRef(null);
@@ -37,10 +38,14 @@ function GameContainer({
   const keyPadsRef = useRef(bindingKeys.map((key, index) => new KeyPad(index, trackWidth, padHeight, key)));
   const notes = notesRef.current;
   const keyPads = keyPadsRef.current;
-  const engineRef = useRef(new Engine(canvasWidth, canvasHeight, speed, delay, notes, keyPads, updateMiss, updateStats));
+  const showResultScene = () => {
+    updateScene(RESULT);
+  };
+  const engineRef = useRef(new Engine(canvasWidth, canvasHeight, speed, delay, notes, keyPads, updateMiss, updateStats, showResultScene));
   const engine = engineRef.current;
   const playMusicTimer = useRef(null);
 
+  const updateDuration = e => setDuration(e.target.duration);
   const playMusic = useCallback(delay => {
     if (delay) {
       playMusicTimer.current = setTimeout(() => {
@@ -81,6 +86,12 @@ function GameContainer({
   }, [engine, togglePlay]);
 
   useEffect(() => {
+    if (duration) {
+      engine.setDuration(duration);
+    }
+  }, [engine, duration]);
+
+  useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
 
@@ -111,6 +122,7 @@ function GameContainer({
       canvasRef={canvasRef}
       isPlayingMode={isPlayingMode}
       confirmLeave={confirmLeave}
+      onAudioLoad={updateDuration}
     />
   );
 }

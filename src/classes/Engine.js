@@ -1,5 +1,5 @@
 export default class Engine {
-  constructor(width, height, speed, delay, notes, keyPads, onMiss, onScore) {
+  constructor(width, height, speed, delay, notes, keyPads, onMiss, onScore, onGameEnd) {
     this.width = width;
     this.height = height;
     this.speed = speed;
@@ -8,12 +8,18 @@ export default class Engine {
     this.isPlay = false;
     this.onMiss = onMiss;
     this.onScore = onScore;
+    this.onGameEnd = onGameEnd;
+    this.delay = delay;
     this.playingTime = -delay * 1000;
     this.timer = null;
   }
 
   setContext = (ctx) => {
     this.ctx = ctx;
+  }
+
+  setDuration = (time) => {
+    this.duration = time + this.delay * 2;
   }
 
   togglePlay = (activeCb, deactiveCb) => {
@@ -46,9 +52,13 @@ export default class Engine {
   }
 
   frame = () => {
-    this.setDelta();
-    this.update();
-    this.animationFrame = requestAnimationFrame(this.frame);
+    if (this.playingTime / 1000 >= this.duration) {
+      this.onGameEnd();
+    } else {
+      this.setDelta();
+      this.update();
+      this.animationFrame = requestAnimationFrame(this.frame);
+    }
   }
 
   setDelta = () => {
@@ -74,6 +84,8 @@ export default class Engine {
   }
 
   update = () => {
+    console.log('Engine update');
+
     this.ctx.clearRect(0, 0, this.width, this.height);
 
     for (let i = 0; i < this.notes.length; i++) {
