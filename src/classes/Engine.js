@@ -62,11 +62,11 @@ export default class Engine {
     const noteIndex = this.notes.indexOf(detectedNote);
 
     if (noteIndex >= 0) {
-      const diffTime = Math.abs(detectedNote.time - this.playingTime / 1000);
+      const timeDiff = Math.abs(detectedNote.time - this.playingTime / 1000);
 
-      if (diffTime < 0.3) {
+      if (timeDiff < 0.3) {
         this.notes.splice(noteIndex, 1);
-        this.onScore(diffTime);
+        this.onScore(timeDiff);
       }
     }
 

@@ -14,13 +14,7 @@ const bindingKeys = [83, 68, 70, 74, 75, 76];
 
 function GameContainer({
   song,
-  score,
-  combo,
-  excellent,
-  good,
-  offBeat,
-  maxCombo,
-  miss,
+  stats,
   isPlayingMode,
   updatePlayingMode,
   updateScene,
@@ -47,7 +41,7 @@ function GameContainer({
   const engine = engineRef.current;
   const playMusicTimer = useRef(null);
 
-  const playMusic = useCallback((delay) => {
+  const playMusic = useCallback(delay => {
     if (delay) {
       playMusicTimer.current = setTimeout(() => {
         audioRef.current.play();
@@ -106,13 +100,13 @@ function GameContainer({
   return (
     <Game
       song={song}
-      score={score}
-      combo={combo}
-      excellent={excellent}
-      good={good}
-      offBeat={offBeat}
-      maxCombo={maxCombo}
-      miss={miss}
+      score={stats.score}
+      combo={stats.combo}
+      maxCombo={stats.maxCombo}
+      excellent={stats.excellent}
+      good={stats.good}
+      offBeat={stats.offBeat}
+      miss={stats.miss}
       audioRef={audioRef}
       canvasRef={canvasRef}
       isPlayingMode={isPlayingMode}
@@ -123,20 +117,22 @@ function GameContainer({
 
 const mapStateToProps = state => ({
   song: state.song.songById[state.game.currentSongId],
-  score: state.game.score,
-  combo: state.game.combo,
-  excellent: state.game.excellent,
-  good: state.game.good,
-  offBeat: state.game.offBeat,
-  maxCombo: state.game.maxCombo,
-  miss: state.game.miss,
+  stats: {
+    score: state.game.score,
+    combo: state.game.combo,
+    maxCombo: state.game.maxCombo,
+    excellent: state.game.excellent,
+    good: state.game.good,
+    offBeat: state.game.offBeat,
+    miss: state.game.miss,
+  },
   isPlayingMode: state.ui.isPlayingMode
 });
 const mapDispatchToProps = dispatch => ({
   updateScene: scene => dispatch(updateScene(scene)),
   updatePlayingMode: () => dispatch(updatePlayingMode()),
   updateMiss: () => dispatch(updateMiss()),
-  updateStats: timeGap => dispatch(updateStats(timeGap))
+  updateStats: timeDiff => dispatch(updateStats(timeDiff))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameContainer);
