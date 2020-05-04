@@ -1,7 +1,7 @@
 import React from 'react';
 import MusicCollection from '../../scenes/MusicCollection/Container';
 import Game from '../../scenes/Game/Container';
-import Result from '../../scenes/Result/Result';
+import Result from '../../scenes/Result/Container';
 import Lobby from '../../scenes/Lobby/Container';
 import { MUSIC_COLLECTION, GAME, RESULT } from '../../constants';
 
