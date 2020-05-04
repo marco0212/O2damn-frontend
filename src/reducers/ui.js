@@ -30,13 +30,13 @@ export default function(state = initialState, action) {
 
     case UPDATE_STATS:
       const statName = getStatNameByTime(action.payload);
-      newIndicators = [...state.indicators, statName];
+      newIndicators = [statName];
       return {
         ...state,
         indicators: newIndicators
       };
     case UPDATE_MISS:
-      newIndicators = [...state.indicators, 'miss'];
+      newIndicators = ['miss'];
       return {
         ...state,
         indicators: newIndicators

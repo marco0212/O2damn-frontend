@@ -115,6 +115,7 @@ const ResultBox = styled.div`
   border-radius: 4px;
 
   & h3 {
+    font-weight: bold;
     font-size: 25px;
     margin-bottom: 21px;
   }

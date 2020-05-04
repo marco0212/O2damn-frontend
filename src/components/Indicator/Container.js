@@ -3,9 +3,9 @@ import Indicator from "./Indicator";
 import { connect } from 'react-redux';
 
 function IndicatorContainer({ indicators, combo }) {
-  return indicators.map((stat, index) => (
+  return indicators.map(stat => (
     <Indicator
-      key={index}
+      key={Math.random()}
       stat={stat}
       combo={combo}
     />
