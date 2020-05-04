@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 export default function MusicCollection({
   songs,
-  currentSong
+  currentSong,
+  listRef
 }) {
   const {
     id: currentSongId,
@@ -15,12 +16,12 @@ export default function MusicCollection({
       <audio src={currentSongUrl} autoPlay />
       <BgOverlay style={{backgroundImage: `url(${currentSongThumb})`}}/>
       <SongArea>
-        <SongList>
+        <SongList ref={listRef}>
           {
             songs.map(song => {
               const { id, title, artistName } = song;
               return (
-                <SongItm key={id} isSelected={currentSongId === id}>
+                <SongItm key={id} data-id={id} isSelected={currentSongId === id}>
                     <h3>{title}</h3>
                     <p>{artistName}</p>
                 </SongItm>
@@ -59,9 +60,12 @@ const BgOverlay = styled.div`
 const SongArea = styled.div`
   float: right;
   padding: 30px;
+  height: 100%;
 `;
 const SongList = styled.ul`
   width: 600px;
+  height: 100%;
+  overflow-y: hidden;
 `;
 const SongItm = styled.li`
   border-radius: 10px;
