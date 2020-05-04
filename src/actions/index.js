@@ -8,7 +8,10 @@ import {
   DECREASE_CURRENT_SONG_INDEX,
   UPDATE_PLAYING_MODE,
   UPDATE_MISS,
-  UPDATE_STATS
+  UPDATE_STATS,
+  UPDATE_RANKING_PENDING,
+  UPDATE_RANKING_SUCCESS,
+  UPDATE_RANKING_FAILURE
 } from '../constants';
 
 export const updateScene = scene => ({
@@ -49,4 +52,15 @@ export const updateMiss = () => ({
 export const updateStats = diffTime => ({
   type: UPDATE_STATS,
   payload: diffTime
+});
+
+export const updateRankingPending = () => ({
+  type: UPDATE_RANKING_PENDING
+});
+export const updateRankingSuccess = (id, ranking) => ({
+  type: UPDATE_RANKING_SUCCESS,
+  payload: { id, ranking }
+});
+export const updateRankingFailure = () => ({
+  type: UPDATE_RANKING_FAILURE
 });

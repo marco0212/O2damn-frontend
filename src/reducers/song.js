@@ -1,4 +1,4 @@
-import { UPDATE_SONGS_SUCCESS } from "../constants";
+import { UPDATE_SONGS_SUCCESS, UPDATE_RANKING_SUCCESS } from "../constants";
 
 const initialState = {
   allSongIds: [],
@@ -19,7 +19,7 @@ export default function (state = initialState, action) {
           music_thumbnail: musicThumbnail,
           music_url: musicUrl,
           video_url: videoUrl,
-          note,
+          notes,
           ranking
         } = song;
 
@@ -31,7 +31,7 @@ export default function (state = initialState, action) {
           musicThumbnail,
           musicUrl,
           videoUrl,
-          note,
+          notes,
           ranking
         };
         return acc;
@@ -40,6 +40,17 @@ export default function (state = initialState, action) {
         ...state,
         allSongIds,
         songById
+      };
+
+    case UPDATE_RANKING_SUCCESS:
+      const { id, ranking} = action.payload;
+      const updatedSong = Object.assign({}, state.songById[id], { ranking });
+      return {
+        ...state,
+        songById: {
+          ...state.songById,
+          [id] : updatedSong
+        }
       };
     default:
       return {
