@@ -84,8 +84,6 @@ export default class Engine {
   }
 
   update = () => {
-    console.log('Engine update');
-
     this.ctx.clearRect(0, 0, this.width, this.height);
 
     for (let i = 0; i < this.notes.length; i++) {

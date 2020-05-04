@@ -7,8 +7,8 @@ import Engine from '../../classes/Engine';
 import { updatePlayingMode, updateScene, updateMiss, updateStats } from '../../actions';
 import { MUSIC_COLLECTION, RESULT } from '../../constants';
 
-const keyNotes = new Array(20).fill().map((ele, index) => (
-    { time: Math.random().toFixed(3) * 20, key: Math.floor(Math.random() * 6) }
+const keyNotes = new Array(300).fill().map((ele, index) => (
+    { time: Math.random().toFixed(3) * 180, key: Math.floor(Math.random() * 6) }
 )).sort((a, b) => a.time - b.time);
 const bindingKeys = [83, 68, 70, 74, 75, 76];
 
