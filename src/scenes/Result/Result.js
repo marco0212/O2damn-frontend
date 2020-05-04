@@ -17,6 +17,12 @@ export default function Result ({
   onPlayAgainButtonClick,
   onGoToMusicCollectionButtonClick
 }) {
+  songRank = isSubmit ? (
+    songRank.sort((b, a) => a.score - b.score)
+  ) : (
+    [...songRank, { username, score, me: true }]
+      .sort((b, a) => a.score - b.score)
+  );
   return (
     <Wrapper>
       <GridWrapper>
@@ -50,10 +56,10 @@ export default function Result ({
         <h3>Ranking</h3>
         <ul>
           {
-            [...songRank, !isSubmit && { username, score, me: true }].sort((b, a) => a.score - b.score).map((rank, index) => {
+            songRank.map((rank, index) => {
               const { username, score, me } = rank;
               return (
-                <RankingItem isMe={me}>
+                <RankingItem isMe={me} key={index}>
                   <b>
                     <strong>{index + 1}. </strong>
                     <em>{username ? username : 'Type your name'}</em>
