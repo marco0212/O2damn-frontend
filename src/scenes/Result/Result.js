@@ -1,26 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 export default function Result ({
-  songTitle,
-  artistName,
+  isLoading,
+  isSubmit,
   songRank,
   score,
   maxCombo,
   excellent,
   good,
   offBeat,
-  miss
+  miss,
+  onFormSubmit,
+  username,
+  onInputChange,
+  onPlayAgainButtonClick,
+  onGoToMusicCollectionButtonClick
 }) {
-  const [username, setUsername] = useState('');
-  const updateUsernameHandler = (e) => setUsername(e.target.value);
-  const onFormSubmit = e => {
-    e.preventDefault();
-    if (username.trim()) {
-      console.log(username);
-    }
-  };
-
   return (
     <Wrapper>
       <GridWrapper>
@@ -54,7 +50,7 @@ export default function Result ({
         <h3>Ranking</h3>
         <ul>
           {
-            [...songRank, { username, score, me: true }].sort((b, a) => a.score - b.score).map((rank, index) => {
+            [...songRank, !isSubmit && { username, score, me: true }].sort((b, a) => a.score - b.score).map((rank, index) => {
               const { username, score, me } = rank;
               return (
                 <RankingItem isMe={me}>
@@ -70,14 +66,27 @@ export default function Result ({
         </ul>
         </Ranking>
         <Buttons>
-          <button>Play Again</button>
-          <button>Go to  Music selection</button>
+          <button onClick={onPlayAgainButtonClick}>Play Again</button>
+          <button onClick={onGoToMusicCollectionButtonClick}>Go to  Music selection</button>
         </Buttons>
         <Username>
           <h3>Let me know who you are</h3>
           <form onSubmit={onFormSubmit}>
-            <input type="text" value={username} onChange={updateUsernameHandler} placeholder="Type your name" required/>
-            <button>Submit</button>
+            <input
+              type="text"
+              value={username}
+              onChange={onInputChange}
+              readOnly={isSubmit}
+              placeholder="Type your name"
+              required
+            />
+            <UsernameButton
+              isLoading={isLoading}
+              isSubmit={isSubmit}
+              disabled={isLoading || isSubmit}
+            >
+              {isLoading ? "Loading" : isSubmit ? "Done" : "Submit"}
+            </UsernameButton>
           </form>
         </Username>
       </GridWrapper>
@@ -160,18 +169,18 @@ const Username = styled(ResultBox)`
       border: 1px solid #eee;
       padding: 0 15px;
     }
-
-    & button {
-      border: 0;
-      padding: 0 30px;
-      font-size: 18px;
-      text-align: center;
-      line-height: 45px;
-      color: #fff;
-      border-radius: 4px;
-      background-color: #1f4068;
-    }
   }
+`;
+const UsernameButton = styled.button`
+  border: 0;
+  padding: 0 30px;
+  font-size: 18px;
+  text-align: center;
+  line-height: 45px;
+  color: #fff;
+  border-radius: 4px;
+  background-color: #1f4068;
+  ${props => (props.isLoading || props.isSubmit) && 'background-color: #666;'}
 `;
 const Buttons = styled(ResultBox)`
   margin: auto 0;
