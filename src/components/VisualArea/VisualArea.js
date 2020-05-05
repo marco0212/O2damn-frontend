@@ -1,9 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import Visualizer from '../Visualizer/Container';
 
 export default function VisualArea() {
   return (
-    <Wrapper>VisualArea</Wrapper>
+    <Wrapper>
+      <Visualizer />
+    </Wrapper>
   );
 }
 
