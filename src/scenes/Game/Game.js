@@ -14,7 +14,8 @@ export default function Game ({
   offBeat,
   miss,
   audioRef,
-  canvasRef,
+  gameControlRef,
+  visualizerRef,
   isPlayingMode,
   confirmLeave,
   onAudioLoad,
@@ -34,9 +35,11 @@ export default function Game ({
         crossOrigin="anonymous"
       />
       <ControlArea
-        canvasRef={canvasRef}
+        canvasRef={gameControlRef}
       />
-      <VisualArea />
+      <VisualArea
+        canvasRef={visualizerRef}
+      />
       <StatArea
         songTitle={title}
         score={score}

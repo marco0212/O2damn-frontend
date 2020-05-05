@@ -22,15 +22,17 @@ function GameContainer({
   updateStats
 }) {
   const [duration, setDuration] = useState(0);
-  const canvasWidth = 300;
+  const gameControllerWidth = 300;
+  const visualizerWidth = window.innerWidth - gameControllerWidth;
   const canvasHeight = window.innerHeight - 90;
   const padHeight = 80;
   const noteHeight = 15;
   const delay = 3;
   const speed = 500;
-  const trackWidth = canvasWidth / bindingKeys.length;
+  const trackWidth = gameControllerWidth / bindingKeys.length;
   const audioRef = useRef(null);
-  const canvasRef = useRef(null);
+  const gameControlRef = useRef(null);
+  const visualizerRef = useRef(null);
   const notesRef = useRef(keyNotes.map(note => {
     const { time, key } = note;
     return new Note(key, time, speed, delay, trackWidth, noteHeight, bindingKeys[key]);
@@ -41,7 +43,7 @@ function GameContainer({
   const showResultScene = () => {
     updateScene(RESULT);
   };
-  const engineRef = useRef(new Engine(canvasWidth, canvasHeight, speed, delay, notes, keyPads, updateMiss, updateStats, showResultScene));
+  const engineRef = useRef(new Engine(gameControllerWidth, canvasHeight, speed, delay, notes, keyPads, updateMiss, updateStats, showResultScene));
   const engine = engineRef.current;
   const playMusicTimer = useRef(null);
 
@@ -105,11 +107,15 @@ function GameContainer({
   }, [engine, duration]);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
+    const gameControl = gameControlRef.current;
+    const visualizer = visualizerRef.current;
+    const ctx = gameControl.getContext('2d');
 
-    canvas.width = canvasWidth;
-    canvas.height = canvasHeight;
+    gameControl.width = gameControllerWidth;
+    gameControl.height = canvasHeight;
+    visualizer.width = visualizerWidth;
+    visualizer.height = canvasHeight;
+
     engine.setContext(ctx);
     playEngin();
     playMusic(delay * 1000);
@@ -120,7 +126,7 @@ function GameContainer({
       clearTimeout(playMusicTimer.current);
       window.removeEventListener('keydown', onKeydown);
     };
-  }, [canvasHeight, engine, pauseEngin, playEngin, onKeydown, playMusic]);
+  }, [visualizerWidth, canvasHeight, engine, pauseEngin, playEngin, onKeydown, playMusic]);
 
   useEffect(() => {
     setInterval(() => {
@@ -139,7 +145,8 @@ function GameContainer({
       offBeat={stats.offBeat}
       miss={stats.miss}
       audioRef={audioRef}
-      canvasRef={canvasRef}
+      gameControlRef={gameControlRef}
+      visualizerRef={visualizerRef}
       isPlayingMode={isPlayingMode}
       confirmLeave={confirmLeave}
       onAudioLoad={updateDuration}
