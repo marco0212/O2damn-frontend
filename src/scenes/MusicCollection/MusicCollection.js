@@ -16,27 +16,39 @@ export default function MusicCollection({
       <audio src={currentSongUrl} autoPlay />
       <BgOverlay style={{backgroundImage: `url(${currentSongThumb})`}}/>
       <SongArea>
-        <SongList ref={listRef}>
+        <ul ref={listRef}>
           {
             songs.map(song => {
-              const { id, title, artistName } = song;
+              const {
+                id,
+                title,
+                artistName,
+                artistThumbnail
+              } = song;
               return (
                 <SongItm key={id} data-id={id} isSelected={currentSongId === id}>
+                  <div>
+                    <img src={artistThumbnail} alt={artistName}/>
+                  </div>
+                  <div>
                     <h3>{title}</h3>
                     <p>{artistName}</p>
+                  </div>
                 </SongItm>
               );
             })
           }
-        </SongList>
+        </ul>
       </SongArea>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
+  cursor: none;
   height: 100%;
   position: relative;
+  display: flex;
 `;
 const BgOverlay = styled.div`
   position: fixed;
@@ -58,38 +70,54 @@ const BgOverlay = styled.div`
   }
 `;
 const SongArea = styled.div`
-  float: right;
-  padding: 30px;
+  padding: 30px 0;
+  width: 70%;
+  margin: auto;
   height: 100%;
-`;
-const SongList = styled.ul`
-  width: 600px;
-  height: 100%;
-  overflow-y: hidden;
 `;
 const SongItm = styled.li`
-  border-radius: 10px;
-  background-color: #333;
-  color: #fff;
-  padding: 10px 20px;
-  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  position: relative;
+  background-color: rgba(255, 255, 255, .8);
+  color: #666;
+  margin-bottom: 15px;
+  transition: box-shadow 0.5s, transform 0.5s;
+
+  & div:first-child {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-right: 15px;
+    overflow: hidden;
+
+    & img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  & div:last-child {
+    flex: 1;
+
+    & h3 {
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 25px;
+      max-height: 50px;
+      overflow: hidden;
+    }
+  }
 
   ${props => props.isSelected && (
+      'z-index: 10;' +
       'background-color: #fff;' +
-      'color: #323232;'
+      'color: #fff;' +
+      'transform: scale(1.05);' +
+      'box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);' +
+      'background: rgb(0,78,146);' +
+      'background: linear-gradient(270deg, rgba(0,78,146,1) 19%, rgba(0,4,40,1) 100%);'
     )
-  }
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-
-  & h3 {
-    font-size: 25px;
-    margin-bottom: 15px;
-  }
-
-  & p {
-    font-size: 20px;
   }
 `;

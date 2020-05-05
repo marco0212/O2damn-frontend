@@ -108,6 +108,9 @@ function GameContainer({
     };
 
     wave.fromElement(audio, "visualizer", options);
+    return () => {
+      audio.onended();
+    }
   }, [visualizerWidth, canvasHeight]);
 
   useEffect(() => {

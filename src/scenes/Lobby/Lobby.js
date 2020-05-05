@@ -11,6 +11,7 @@ export default function Lobby() {
 }
 
 const Wrapper = styled.div`
+  cursor: none;
   height: 100%;
   display: flex;
   flex-direction: column;
