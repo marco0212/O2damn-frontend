@@ -13,7 +13,7 @@ export default function VisualArea({ canvasRef }) {
 }
 
 const Wrapper = styled.div`
-  background-color: rgba(139, 195, 74, 0.5);
+  background-color: #323232;
   grid-column: 2;
   grid-row: 1;
 `;

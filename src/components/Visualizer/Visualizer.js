@@ -5,6 +5,7 @@ export default function Visualizer({ canvasRef }) {
   return (
     <Canvas
       ref={canvasRef}
+      id="visualizer"
     />
   );
 }

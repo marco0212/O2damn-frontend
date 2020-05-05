@@ -87,19 +87,6 @@ function GameContainer({
     }
   }, [engine, togglePlay]);
 
-  const cotextRef = useRef(new AudioContext());
-  const context = cotextRef.current;
-  const analyserRef = useRef(context.createAnalyser());
-  const analyser = analyserRef.current;
-  analyser.fftSize = 64;
-  const frequencyDataRef = useRef(new Uint8Array(analyser.frequencyBinCount));
-  const frequencyData = frequencyDataRef.current;
-  const connectAnalyser = () => {
-    const source = context.createMediaElementSource(audioRef.current);
-    source.connect(analyser);
-    analyser.connect(context.destination);
-  }
-
   useEffect(() => {
     if (duration) {
       engine.setDuration(duration);
@@ -107,14 +94,28 @@ function GameContainer({
   }, [engine, duration]);
 
   useEffect(() => {
-    const gameControl = gameControlRef.current;
     const visualizer = visualizerRef.current;
+    const audio = audioRef.current;
+    const wave = new window.Wave();
+
+    visualizer.width = visualizerWidth;
+    visualizer.height = canvasHeight;
+
+    const options = {
+      stroke: 1,
+      colors: ['#fff'],
+      shine: true
+    };
+
+    wave.fromElement(audio, "visualizer", options);
+  }, [visualizerWidth, canvasHeight]);
+
+  useEffect(() => {
+    const gameControl = gameControlRef.current;
     const ctx = gameControl.getContext('2d');
 
     gameControl.width = gameControllerWidth;
     gameControl.height = canvasHeight;
-    visualizer.width = visualizerWidth;
-    visualizer.height = canvasHeight;
 
     engine.setContext(ctx);
     playEngin();
@@ -128,12 +129,6 @@ function GameContainer({
     };
   }, [visualizerWidth, canvasHeight, engine, pauseEngin, playEngin, onKeydown, playMusic]);
 
-  useEffect(() => {
-    setInterval(() => {
-      analyser.getByteFrequencyData(frequencyData);
-      console.log(frequencyData);
-    }, 500);
-  }, [analyser, frequencyData]);
   return (
     <Game
       song={song}
@@ -150,7 +145,6 @@ function GameContainer({
       isPlayingMode={isPlayingMode}
       confirmLeave={confirmLeave}
       onAudioLoad={updateDuration}
-      onAudioCanPlay={connectAnalyser}
     />
   );
 }

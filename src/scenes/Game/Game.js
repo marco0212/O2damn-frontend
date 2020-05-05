@@ -18,8 +18,7 @@ export default function Game ({
   visualizerRef,
   isPlayingMode,
   confirmLeave,
-  onAudioLoad,
-  onAudioCanPlay
+  onAudioLoad
 }) {
   const { title, musicUrl } = song;
   return (
@@ -31,7 +30,6 @@ export default function Game ({
         src={musicUrl}
         ref={audioRef}
         onLoadedData={onAudioLoad}
-        onCanPlay={onAudioCanPlay}
         crossOrigin="anonymous"
       />
       <ControlArea
