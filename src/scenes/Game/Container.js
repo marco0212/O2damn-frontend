@@ -85,6 +85,19 @@ function GameContainer({
     }
   }, [engine, togglePlay]);
 
+  const cotextRef = useRef(new AudioContext());
+  const context = cotextRef.current;
+  const analyserRef = useRef(context.createAnalyser());
+  const analyser = analyserRef.current;
+  analyser.fftSize = 64;
+  const frequencyDataRef = useRef(new Uint8Array(analyser.frequencyBinCount));
+  const frequencyData = frequencyDataRef.current;
+  const connectAnalyser = () => {
+    const source = context.createMediaElementSource(audioRef.current);
+    source.connect(analyser);
+    analyser.connect(context.destination);
+  }
+
   useEffect(() => {
     if (duration) {
       engine.setDuration(duration);
@@ -108,6 +121,13 @@ function GameContainer({
       window.removeEventListener('keydown', onKeydown);
     };
   }, [canvasHeight, engine, pauseEngin, playEngin, onKeydown, playMusic]);
+
+  useEffect(() => {
+    setInterval(() => {
+      analyser.getByteFrequencyData(frequencyData);
+      console.log(frequencyData);
+    }, 500);
+  }, [analyser, frequencyData]);
   return (
     <Game
       song={song}
@@ -123,6 +143,7 @@ function GameContainer({
       isPlayingMode={isPlayingMode}
       confirmLeave={confirmLeave}
       onAudioLoad={updateDuration}
+      onAudioCanPlay={connectAnalyser}
     />
   );
 }
