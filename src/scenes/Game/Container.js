@@ -7,11 +7,8 @@ import Engine from '../../classes/Engine';
 import { updatePlayingMode, updateScene, updateMiss, updateStats } from '../../actions';
 import { MUSIC_COLLECTION, RESULT } from '../../constants';
 
-const keyNotes = new Array(300).fill().map((ele, index) => (
-    { time: Math.random().toFixed(3) * 180, key: Math.floor(Math.random() * 6) }
-)).sort((a, b) => a.time - b.time);
 const bindingKeys = [83, 68, 70, 74, 75, 76];
-
+const keyNotes = [];
 function GameContainer({
   song,
   stats,
@@ -28,7 +25,7 @@ function GameContainer({
   const padHeight = 80;
   const noteHeight = 15;
   const delay = 3;
-  const speed = 500;
+  const speed = 200;
   const trackWidth = gameControllerWidth / bindingKeys.length;
   const audioRef = useRef(null);
   const gameControlRef = useRef(null);
@@ -37,6 +34,8 @@ function GameContainer({
     const { time, key } = note;
     return new Note(key, time, speed, delay, trackWidth, noteHeight, bindingKeys[key]);
   }));
+  const waveRef = useRef(new window.Wave());
+  const wave = waveRef.current;
   const keyPadsRef = useRef(bindingKeys.map((key, index) => new KeyPad(index, trackWidth, padHeight, key)));
   const notes = notesRef.current;
   const keyPads = keyPadsRef.current;
@@ -81,7 +80,7 @@ function GameContainer({
       .length;
 
     if (isBindingKeyPressed) {
-      engine.keyDown(pressedKey);
+      engine.keyDown(pressedKey, bindingKeys.indexOf(pressedKey));
     } else if (pressedKey === ESC) {
       togglePlay();
     }
@@ -94,43 +93,34 @@ function GameContainer({
   }, [engine, duration]);
 
   useEffect(() => {
+    const gameControl = gameControlRef.current;
+    const ctx = gameControl.getContext('2d');
     const visualizer = visualizerRef.current;
     const audio = audioRef.current;
-    const wave = new window.Wave();
-
-    visualizer.width = visualizerWidth;
-    visualizer.height = canvasHeight;
-
     const options = {
       stroke: 1,
       colors: ['#fff'],
       shine: true
     };
 
-    wave.fromElement(audio, "visualizer", options);
-    return () => {
-      audio.onended();
-    }
-  }, [visualizerWidth, canvasHeight]);
-
-  useEffect(() => {
-    const gameControl = gameControlRef.current;
-    const ctx = gameControl.getContext('2d');
-
     gameControl.width = gameControllerWidth;
     gameControl.height = canvasHeight;
+    visualizer.width = visualizerWidth;
+    visualizer.height = canvasHeight;
 
     engine.setContext(ctx);
     playEngin();
     playMusic(delay * 1000);
+    wave.fromElement(audio, "visualizer", options);
 
     window.addEventListener('keydown', onKeydown);
     return () => {
       pauseEngin();
+      audio.onended();
       clearTimeout(playMusicTimer.current);
       window.removeEventListener('keydown', onKeydown);
     };
-  }, [visualizerWidth, canvasHeight, engine, pauseEngin, playEngin, onKeydown, playMusic]);
+  }, [wave, visualizerWidth, canvasHeight, engine, pauseEngin, playEngin, onKeydown, playMusic]);
 
   return (
     <Game
