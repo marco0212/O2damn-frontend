@@ -73,7 +73,6 @@ const SongArea = styled.div`
   padding: 30px 0;
   width: 70%;
   margin: auto;
-  height: 100%;
 `;
 const SongItm = styled.li`
   display: flex;
