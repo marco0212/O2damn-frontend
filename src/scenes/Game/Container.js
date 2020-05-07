@@ -111,7 +111,10 @@ function GameContainer({
     engine.setContext(ctx);
     playEngin();
     playMusic(delay * 1000);
-    wave.fromElement(audio, "visualizer", options);
+
+    if (visualizerRef.current) {
+      wave.fromElement(audio, "visualizer", options);
+    }
 
     window.addEventListener('keydown', onKeydown);
     return () => {
