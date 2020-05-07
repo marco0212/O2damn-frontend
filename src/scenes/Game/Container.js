@@ -8,7 +8,6 @@ import { updatePlayingMode, updateScene, updateMiss, updateStats } from '../../a
 import { MUSIC_COLLECTION, RESULT } from '../../constants';
 
 const bindingKeys = [83, 68, 70, 74, 75, 76];
-const keyNotes = [];
 function GameContainer({
   song,
   stats,
@@ -18,6 +17,7 @@ function GameContainer({
   updateMiss,
   updateStats
 }) {
+  const { notes: keyNotes } = song;
   const [duration, setDuration] = useState(0);
   const gameControllerWidth = 300;
   const visualizerWidth = window.innerWidth - gameControllerWidth;
@@ -25,7 +25,7 @@ function GameContainer({
   const padHeight = 80;
   const noteHeight = 15;
   const delay = 3;
-  const speed = 200;
+  const speed = 350;
   const trackWidth = gameControllerWidth / bindingKeys.length;
   const audioRef = useRef(null);
   const gameControlRef = useRef(null);
