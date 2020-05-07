@@ -19,7 +19,7 @@ export default class Engine {
   }
 
   setDuration = (time) => {
-    this.duration = time + this.delay * 2;
+    this.duration = time;
   }
 
   togglePlay = (activeCb, deactiveCb) => {
