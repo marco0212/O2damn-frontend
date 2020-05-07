@@ -9,8 +9,10 @@ import {
   updateScene
 } from '../../actions';
 import { GAME } from '../../constants';
+import Loading from './Loading';
 
 function McContainer({
+  isLoading,
   songs,
   songIds,
   currentSongIndex,
@@ -67,7 +69,10 @@ function McContainer({
   useEffect(() => {
     getSongs();
   }, [getSongs]);
-  return (
+
+  return isLoading ? (
+    <Loading />
+  ) : (
     <MusicCollection
       listRef={listRef}
       songs={songs}
@@ -77,6 +82,7 @@ function McContainer({
 }
 
 const mapStateToProps = state => ({
+  isLoading: state.musicCollection.fetchLoading,
   songs: state.song.allSongIds.map(id => state.song.songById[id]),
   songIds: state.song.allSongIds,
   currentSongIndex: state.musicCollection.currentSongIndex,
