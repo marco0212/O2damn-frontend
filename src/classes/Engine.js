@@ -67,10 +67,9 @@ export default class Engine {
     this.then = this.now;
   }
 
-  keyDown(pressedKey, index) {
+  keyDown(pressedKey) {
     const detectedNote = this.notes.find(note => note.key === pressedKey);
     const noteIndex = this.notes.indexOf(detectedNote);
-    console.log(`{ key: ${index}, time: ${this.playingTime / 1000} },`);
 
     if (noteIndex >= 0) {
       const timeDiff = Math.abs(detectedNote.time - this.playingTime / 1000);
@@ -95,9 +94,5 @@ export default class Engine {
 
     this.notes.forEach(note => note.update(this.ctx, this.speed, this.delta));
     this.keyPads.forEach(keypad => keypad.update(this.ctx, this.height));
-
-    this.ctx.font = '48px serif';
-    this.ctx.fillStyle = '#fff';
-    this.ctx.fillText(Number(this.playingTime / 1000).toFixed(2), 10, 100);
   }
 }
