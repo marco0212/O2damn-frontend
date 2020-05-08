@@ -67,10 +67,8 @@ function McContainer({
   }, [songs, songIds, currentSongIndex, currentSong.id, increaseSongIndex, decreaseSongIndex, updateGameSongId, updateScene]);
 
   useEffect(() => {
-    if (!songs.length) {
-      getSongs();
-    }
-  }, [getSongs, songs.length]);
+    getSongs();
+  }, [getSongs]);
 
   return isLoading ? (
     <Loading />
