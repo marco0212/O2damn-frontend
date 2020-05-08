@@ -18,7 +18,6 @@ export default function (state = initialState, action) {
           artist_pic: artistThumbnail,
           music_thumb_url: musicThumbnail,
           music_url: musicUrl,
-          video_url: videoUrl,
           notes,
           ranking
         } = song;
@@ -30,12 +29,12 @@ export default function (state = initialState, action) {
           artistThumbnail,
           musicThumbnail,
           musicUrl,
-          videoUrl,
           notes,
           ranking
         };
         return acc;
       }, {});
+
       return {
         ...state,
         allSongIds,
@@ -45,6 +44,7 @@ export default function (state = initialState, action) {
     case UPDATE_RANKING_SUCCESS:
       const { id, ranking} = action.payload;
       const updatedSong = Object.assign({}, state.songById[id], { ranking });
+
       return {
         ...state,
         songById: {
@@ -52,6 +52,7 @@ export default function (state = initialState, action) {
           [id] : updatedSong
         }
       };
+
     default:
       return {
         ...state
