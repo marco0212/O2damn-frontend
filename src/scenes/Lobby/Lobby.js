@@ -13,7 +13,6 @@ export default function Lobby() {
 const Wrapper = styled.div`
   position: relative;
   background: no-repeat center center / cover;
-  cursor: none;
   height: 100%;
   display: flex;
   flex-direction: column;

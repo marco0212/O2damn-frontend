@@ -45,7 +45,6 @@ export default function MusicCollection({
 }
 
 const Wrapper = styled.div`
-  cursor: none;
   height: 100%;
   position: relative;
   display: flex;

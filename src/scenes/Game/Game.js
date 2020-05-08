@@ -52,7 +52,6 @@ export default function Game ({
 }
 
 const Wrapper = styled.div`
-  cursor: none;
   height: 100%;
   display: grid;
   grid-template-rows: 1fr 90px;
