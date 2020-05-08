@@ -141,6 +141,14 @@ const RankingItem = styled.li`
   border-bottom: 1px solid #eee;
   line-height: 49px;
   font-size: 20px;
+
+  b {
+    white-space: nowrap;
+    padding-right: 15px;
+    max-width: 70%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;
 const PlayResult = styled(ResultBox)`
   & ul {
