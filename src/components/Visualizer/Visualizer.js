@@ -10,4 +10,7 @@ export default function Visualizer({ canvasRef }) {
   );
 }
 
-const Canvas = styled.canvas``;
+const Canvas = styled.canvas`
+  position: relative;
+  z-index: 5;
+`;

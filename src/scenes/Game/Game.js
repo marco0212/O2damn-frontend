@@ -20,7 +20,7 @@ export default function Game ({
   confirmLeave,
   onAudioLoad
 }) {
-  const { title, musicUrl } = song;
+  const { title, musicUrl, musicThumbnail } = song;
   return (
     <Wrapper>
       {
@@ -37,6 +37,7 @@ export default function Game ({
       />
       <VisualArea
         canvasRef={visualizerRef}
+        bg={musicThumbnail}
       />
       <StatArea
         songTitle={title}

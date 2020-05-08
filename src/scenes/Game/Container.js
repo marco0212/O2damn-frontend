@@ -98,9 +98,9 @@ function GameContainer({
     const visualizer = visualizerRef.current;
     const audio = audioRef.current;
     const options = {
-      stroke: 1,
-      colors: ['#fff'],
-      shine: true
+      stroke: 10,
+      colors: ['rgba(255, 255, 255, .3)'],
+      bars: true
     };
 
     gameControl.width = gameControllerWidth;
