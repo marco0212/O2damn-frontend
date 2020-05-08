@@ -13,7 +13,7 @@ function IndicatorContainer({ indicators, combo }) {
 }
 
 const mapStateToProps = state => ({
-  indicators: state.ui.indicators,
+  indicators: state.game.indicators,
   combo: state.game.combo
 });
 

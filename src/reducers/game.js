@@ -9,22 +9,29 @@ const initialState = {
   excellent: 0,
   good: 0,
   offBeat: 0,
-  miss: 0
+  miss: 0,
+  indicators: []
 };
 
 export default function(state = initialState, action) {
+  let newIndicators;
+
   switch(action.type) {
     case UPDATE_GAME_SONG_ID:
       return {
         ...initialState,
+        indicators: [],
         currentSongId: action.payload
       };
 
     case UPDATE_MISS:
+      newIndicators = ['miss'];
+
       return {
         ...state,
         miss: state.miss + 1,
-        combo: 0
+        combo: 0,
+        indicators: newIndicators,
       };
 
     case UPDATE_STATS:
@@ -38,13 +45,15 @@ export default function(state = initialState, action) {
         excellent: 60
       };
 
+      newIndicators = [statName];
       nextState[statName] += 1;
       nextState.score += scoreTable[statName] * updateCombo;
 
       return {
         ...nextState,
         combo: updateCombo,
-        maxCombo: updateCombo > state.maxCombo ? updateCombo : state.maxCombo
+        maxCombo: updateCombo > state.maxCombo ? updateCombo : state.maxCombo,
+        indicators: newIndicators
       };
 
     default:
