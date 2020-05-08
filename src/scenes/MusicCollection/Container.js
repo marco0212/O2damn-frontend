@@ -53,7 +53,7 @@ function McContainer({
 
         if (id) {
           const target = list.querySelector(`li[data-id="${id}"]`);
-          target.scrollIntoView({behavior: "smooth"});
+          target.scrollIntoView({ behavior: "smooth" });
         }
       } else if (key === SPACE_BAR) {
         startGame(currentSong.id);

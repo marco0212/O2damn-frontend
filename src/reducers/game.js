@@ -1,4 +1,4 @@
-import { UPDATE_GAME_SONG_ID, UPDATE_MISS, UPDATE_STATS } from "../constants";
+import { UPDATE_GAME_SONG_ID, UPDATE_MISS, UPDATE_STATS, UPDATE_PLAYING_MODE } from "../constants";
 import getStatNameByTime from "../utils/judgement";
 
 const initialState = {
@@ -10,7 +10,8 @@ const initialState = {
   good: 0,
   offBeat: 0,
   miss: 0,
-  indicators: []
+  indicators: [],
+  isPlayingMode: true
 };
 
 export default function(state = initialState, action) {
@@ -54,6 +55,12 @@ export default function(state = initialState, action) {
         combo: updateCombo,
         maxCombo: updateCombo > state.maxCombo ? updateCombo : state.maxCombo,
         indicators: newIndicators
+      };
+
+    case UPDATE_PLAYING_MODE:
+      return {
+        ...state,
+        isPlayingMode: !state.isPlayingMode
       };
 
     default:

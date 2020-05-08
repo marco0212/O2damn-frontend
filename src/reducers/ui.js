@@ -1,8 +1,7 @@
-import { UPDATE_SCENE, LOBBY, UPDATE_PLAYING_MODE } from "../constants";
+import { UPDATE_SCENE, LOBBY } from "../constants";
 
 const initialState = {
-  currentScene: LOBBY,
-  isPlayingMode: true
+  currentScene: LOBBY
 };
 
 export default function(state = initialState, action) {
@@ -11,12 +10,6 @@ export default function(state = initialState, action) {
       return {
         ...state,
         currentScene: action.payload
-      };
-
-    case UPDATE_PLAYING_MODE:
-      return {
-        ...state,
-        isPlayingMode: !state.isPlayingMode
       };
 
     default:

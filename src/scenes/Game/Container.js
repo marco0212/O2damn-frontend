@@ -156,7 +156,7 @@ const mapStateToProps = state => ({
     offBeat: state.game.offBeat,
     miss: state.game.miss,
   },
-  isPlayingMode: state.ui.isPlayingMode
+  isPlayingMode: state.game.isPlayingMode
 });
 const mapDispatchToProps = dispatch => ({
   updateScene: scene => dispatch(updateScene(scene)),
