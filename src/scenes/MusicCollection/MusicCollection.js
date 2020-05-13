@@ -14,7 +14,7 @@ export default function MusicCollection({
   return (
     <Wrapper>
       <audio src={currentSongUrl} autoPlay />
-      <BgOverlay style={{backgroundImage: `url(${currentSongThumb})`}}/>
+      <BgOverlay style={{backgroundImage: `url(${currentSongThumb ? currentSongThumb : ''})`}}/>
       <SongArea>
         <ul ref={listRef}>
           {
