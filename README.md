@@ -15,7 +15,7 @@
 
 ```
 git clone https://github.com/marco0212/O2damn-frontend.git
-cd O2damn
+cd O2damn-frontend
 npm install (or yarn)
 npm start (or yarn)
 ```
