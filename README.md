@@ -1,5 +1,7 @@
 # O2 Damn
 
+![preview](./o2damn.png)
+
 [https://www.o2damn.club](https://www.o2damn.club)
 
 ## Introduction
