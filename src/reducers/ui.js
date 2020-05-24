@@ -1,10 +1,10 @@
-import { UPDATE_SCENE, LOBBY } from "../constants";
+import { UPDATE_SCENE, LOBBY } from '../constants';
 
 const initialState = {
   currentScene: LOBBY
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
     case UPDATE_SCENE:
       return {

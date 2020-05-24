@@ -15,8 +15,8 @@ export default class KeyPad {
     this.height = height;
     this.keyBind = keyBind;
     this.hitOpacity = 0;
-    
-    switch(index) {
+
+    switch (index) {
       case 0:
       case 5:
         this.color = colors[0];
@@ -35,9 +35,9 @@ export default class KeyPad {
     if (key === this.keyBind) {
       this.hitOpacity = 1;
     }
-  };
+  }
 
-  update (ctx, canvasHeight) {
+  update(ctx, canvasHeight) {
     const padStartY = canvasHeight - this.height;
     const keyWidth = this.width - 2 * padding;
     const keyStartX = this.x + padding;
@@ -83,5 +83,5 @@ export default class KeyPad {
     roundRect(ctx, keyStartX, keyStartY, keyWidth, keyHeight, 10, true);
     ctx.strokeStyle = '#fff';
     roundRect(ctx, keyStartX, keyStartY, keyWidth, keyHeight, 10, false, true);
-  };
+  }
 }

@@ -1,4 +1,4 @@
-import { UPDATE_SONGS_SUCCESS, UPDATE_RANKING_SUCCESS } from "../constants";
+import { UPDATE_SONGS_SUCCESS, UPDATE_RANKING_SUCCESS } from '../constants';
 
 const initialState = {
   allSongIds: [],
@@ -42,14 +42,14 @@ export default function (state = initialState, action) {
       };
 
     case UPDATE_RANKING_SUCCESS:
-      const { id, ranking} = action.payload;
-      const updatedSong = Object.assign({}, state.songById[id], { ranking });
+      const { id, ranking } = action.payload;
+      const updatedSong = { ...state.songById[id], ranking };
 
       return {
         ...state,
         songById: {
           ...state.songById,
-          [id] : updatedSong
+          [id]: updatedSong
         }
       };
 

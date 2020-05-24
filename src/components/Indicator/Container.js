@@ -1,6 +1,6 @@
 import React from 'react';
-import Indicator from "./Indicator";
 import { connect } from 'react-redux';
+import Indicator from './Indicator';
 
 function IndicatorContainer({ indicators, combo }) {
   return indicators.map(stat => (

@@ -1,6 +1,6 @@
 import React from 'react';
-import App from './App';
 import { connect } from 'react-redux';
+import App from './App';
 
 function AppContainer({ status }) {
   return <App status={status} />;

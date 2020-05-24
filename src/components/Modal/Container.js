@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import Modal from './Modal';
 import { connect } from 'react-redux';
+import Modal from './Modal';
 
 function ModalContainer({ confirmLeave }) {
   const [isSelectLeave, setIsSelectLeave] = useState(true);
-  
+
   useEffect(() => {
     const onKeydown = e => {
       const key = e.which;
       const SPACE_BAR = 32;
       const ENTER = 13;
-  
+
       if (key > 36 && key < 41) {
         setIsSelectLeave(!isSelectLeave);
-      } else if (key === SPACE_BAR || key === ENTER ) {
+      } else if (key === SPACE_BAR || key === ENTER) {
         confirmLeave(isSelectLeave);
       }
     };

@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import lobby_bg from '../../assets/lobby_bg.png';
+
 export default function Lobby() {
   return (
-    <Wrapper style={{ backgroundImage: `url(${lobby_bg})`}}>
+    <Wrapper style={{ backgroundImage: `url(${lobby_bg})` }}>
       <h1>O2 Damn</h1>
       <p>Press Space</p>
     </Wrapper>

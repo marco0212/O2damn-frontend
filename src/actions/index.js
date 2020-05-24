@@ -25,11 +25,11 @@ export const updatePlayingMode = () => ({
 export const updateSongsPending = () => ({
   type: UPDATE_SONGS_PENDING
 });
-export const updateSongsSuccess = (items) => ({
+export const updateSongsSuccess = items => ({
   type: UPDATE_SONGS_SUCCESS,
   payload: items
 });
-export const updateSongsFailure = (error) => ({
+export const updateSongsFailure = error => ({
   type: UPDATE_SONGS_FAILURE,
   payload: error
 });

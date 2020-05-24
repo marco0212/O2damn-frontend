@@ -4,7 +4,7 @@ import Visualizer from '../Visualizer/Container';
 
 export default function VisualArea({ canvasRef, bg }) {
   return (
-    <Wrapper style={ { backgroundImage: `url(${bg})`}}>
+    <Wrapper style={{ backgroundImage: `url(${bg})` }}>
       <Visualizer
         canvasRef={canvasRef}
       />

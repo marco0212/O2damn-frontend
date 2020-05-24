@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function Result ({
+export default function Result({
   isLoading,
   isSubmit,
   songRank,
@@ -53,23 +53,23 @@ export default function Result ({
           <p>Score <em>{score}</em></p>
         </PlayResult>
         <Ranking>
-        <h3>Ranking</h3>
-        <ul>
-          {
-            songRank.map((rank, index) => {
-              const { username, score, me } = rank;
-              return (
-                <RankingItem isMe={me} key={index}>
-                  <b>
-                    <strong>{index + 1}. </strong>
-                    <em>{username ? username : 'Type your name'}</em>
-                  </b>
-                  <span>{score}</span>
-                </RankingItem>
-              );
-            })
-          }
-        </ul>
+          <h3>Ranking</h3>
+          <ul>
+            {
+              songRank.map((rank, index) => {
+                const { username, score, me } = rank;
+                return (
+                  <RankingItem isMe={me} key={index}>
+                    <b>
+                      <strong>{index + 1}. </strong>
+                      <em>{username || 'Type your name'}</em>
+                    </b>
+                    <span>{score}</span>
+                  </RankingItem>
+                );
+              })
+            }
+          </ul>
         </Ranking>
         <Buttons>
           <button onClick={onPlayAgainButtonClick}>Play Again</button>
@@ -91,7 +91,7 @@ export default function Result ({
               isSubmit={isSubmit}
               disabled={isLoading || isSubmit}
             >
-              {isLoading ? "Loading" : isSubmit ? "Done" : "Submit"}
+              {isLoading ? 'Loading' : isSubmit ? 'Done' : 'Submit'}
             </UsernameButton>
           </form>
         </Username>

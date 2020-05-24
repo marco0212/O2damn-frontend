@@ -1,6 +1,6 @@
 import React from 'react';
-import Visualizer from './Visualizer';
 import { connect } from 'react-redux';
+import Visualizer from './Visualizer';
 
 function VisualizerContainer({ canvasRef }) {
   return (

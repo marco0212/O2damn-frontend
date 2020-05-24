@@ -5,8 +5,8 @@ import {
   updateRankingPending,
   updateRankingSuccess,
   updateRankingFailure
-} from "../actions";
-import { getSongsAPI, updateRankingAPI } from "../api";
+} from '../actions';
+import { getSongsAPI, updateRankingAPI } from '../api';
 
 export const getSongs = () => async dispatch => {
   try {
@@ -19,7 +19,7 @@ export const getSongs = () => async dispatch => {
   } catch (error) {
     dispatch(updateSongsFailure(error.message));
   }
-}
+};
 
 export const updateRanking = (id, ranks) => async dispatch => {
   try {

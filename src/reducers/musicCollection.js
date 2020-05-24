@@ -3,15 +3,15 @@ import {
   DECREASE_CURRENT_SONG_INDEX,
   UPDATE_SONGS_PENDING,
   UPDATE_SONGS_SUCCESS
-} from "../constants";
+} from '../constants';
 
 const initialState = {
   fetchLoading: false,
   currentSongIndex: 0
 };
 
-export default function(state = initialState, action) {
-  switch(action.type) {
+export default function (state = initialState, action) {
+  switch (action.type) {
     case UPDATE_SONGS_PENDING:
       return {
         ...state,
@@ -27,18 +27,18 @@ export default function(state = initialState, action) {
     case INCREASE_CURRENT_SONG_INDEX:
       return {
         ...state,
-        currentSongIndex : state.currentSongIndex + 1
+        currentSongIndex: state.currentSongIndex + 1
       };
 
     case DECREASE_CURRENT_SONG_INDEX:
       return {
         ...state,
-        currentSongIndex : state.currentSongIndex - 1
+        currentSongIndex: state.currentSongIndex - 1
       };
 
     default:
       return {
         ...state
-      }
+      };
   }
 }

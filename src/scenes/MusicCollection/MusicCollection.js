@@ -14,7 +14,7 @@ export default function MusicCollection({
   return (
     <Wrapper>
       <audio src={currentSongUrl} autoPlay />
-      <BgOverlay style={{backgroundImage: `url(${currentSongThumb ? currentSongThumb : ''})`}}/>
+      <BgOverlay style={{ backgroundImage: `url(${currentSongThumb || ''})` }} />
       <SongArea>
         <ul ref={listRef}>
           {
@@ -28,7 +28,7 @@ export default function MusicCollection({
               return (
                 <SongItm key={id} data-id={id} isSelected={currentSongId === id}>
                   <div>
-                    <img src={artistThumbnail} alt={artistName}/>
+                    <img src={artistThumbnail} alt={artistName} />
                   </div>
                   <div>
                     <h3>{title}</h3>
@@ -109,13 +109,13 @@ const SongItm = styled.li`
   }
 
   ${props => props.isSelected && (
-      'z-index: 10;' +
-      'background-color: #fff;' +
-      'color: #fff;' +
-      'transform: scale(1.05);' +
-      'box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);' +
-      'background: rgb(0,78,146);' +
-      'background: linear-gradient(270deg, rgba(0,78,146,1) 19%, rgba(0,4,40,1) 100%);'
-    )
-  }
+    'z-index: 10;'
+      + 'background-color: #fff;'
+      + 'color: #fff;'
+      + 'transform: scale(1.05);'
+      + 'box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);'
+      + 'background: rgb(0,78,146);'
+      + 'background: linear-gradient(270deg, rgba(0,78,146,1) 19%, rgba(0,4,40,1) 100%);'
+  )
+}
 `;

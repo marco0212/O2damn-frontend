@@ -1,0 +1,64 @@
+{
+    "extends": "airbnb",
+    "rules": {
+        "react/jsx-filename-extension": 0,
+        "react/jsx-props-no-spreading": 0,
+        "react/jsx-one-expression-per-line": 0,
+        "react/destructuring-assignment": 0,
+        "no-plusplus": 0,
+        "linebreak-style": 0,
+        "object-curly-newline": 0,
+        "array-bracket-spacing": 0,
+        "arrow-body-style": 0,
+        "implicit-arrow-linebreak": 0,
+        "no-new": 0,
+        "no-console": 0,
+        "consistent-return": 0,
+        "func-names": 0,
+        "no-underscore-dangle": 0,
+        "no-shadow": 0,
+        "no-nested-ternary": 0,
+        "max-len": 0,
+        "spaced-comment": 0,
+        "import/prefer-default-export": 0,
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+            "devDependencies": true
+            }
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "comma-dangle": [
+            "error",
+            "never"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "eol-last": [
+            "error",
+            "always"
+        ],
+        "arrow-parens": [
+            "error",
+            "as-needed"
+        ],
+        "indent": [
+            "error",
+            2,
+            {
+            "SwitchCase": 1
+            }
+        ],
+        "no-multiple-empty-lines": [
+            "error",
+            {
+            "max": 1
+            }
+        ]
+    }
+}

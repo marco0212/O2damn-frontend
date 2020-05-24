@@ -1,4 +1,4 @@
-import { roundRect } from "../utils/drawings";
+import { roundRect } from '../utils/drawings';
 
 export const colors = [[255, 87, 34], [0, 188, 212], [246, 215, 67]];
 const padding = 3;
@@ -11,12 +11,12 @@ export default class Note {
     this.index = index;
     this.time = time;
     this.x = index * trackWidth;
-    this.y = -(time + delay) * speed  + noteMaxY;
+    this.y = -(time + delay) * speed + noteMaxY;
     this.width = trackWidth;
     this.noteHeight = noteHeight;
     this.key = key;
 
-    switch(index) {
+    switch (index) {
       case 0:
       case 5:
         this.color = colors[0];
@@ -43,5 +43,5 @@ export default class Note {
     this.y += speed * delta;
     ctx.fillStyle = `rgb(${color})`;
     roundRect(ctx, noteStartX, this.y, noteWidth, this.noteHeight, 5, true);
-  };
+  }
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import MusicCollection from './MusicCollection';
 import { connect } from 'react-redux';
+import MusicCollection from './MusicCollection';
 import { getSongs } from '../../thunks';
 import {
   increaseCurrentSongIndex,
@@ -53,7 +53,7 @@ function McContainer({
 
         if (id) {
           const target = list.querySelector(`li[data-id="${id}"]`);
-          target.scrollIntoView({ behavior: "smooth" });
+          target.scrollIntoView({ behavior: 'smooth' });
         }
       } else if (key === SPACE_BAR) {
         startGame(currentSong.id);
@@ -63,7 +63,7 @@ function McContainer({
     window.addEventListener('keydown', onKeydownHandler);
     return () => {
       window.removeEventListener('keydown', onKeydownHandler);
-    }
+    };
   }, [songs, songIds, currentSongIndex, currentSong.id, increaseSongIndex, decreaseSongIndex, updateGameSongId, updateScene]);
 
   useEffect(() => {
@@ -92,8 +92,8 @@ const mapDispatchToProps = dispatch => ({
   getSongs: () => dispatch(getSongs()),
   increaseSongIndex: () => dispatch(increaseCurrentSongIndex()),
   decreaseSongIndex: () => dispatch(decreaseCurrentSongIndex()),
-  updateGameSongId: (id) => dispatch(updateGameSongId(id)),
-  updateScene: (scene) => dispatch(updateScene(scene))
+  updateGameSongId: id => dispatch(updateGameSongId(id)),
+  updateScene: scene => dispatch(updateScene(scene))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(McContainer);

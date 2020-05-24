@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import Lobby from './Lobby';
 import { connect } from 'react-redux';
+import Lobby from './Lobby';
 import { updateScene } from '../../actions';
 import { MUSIC_COLLECTION } from '../../constants';
 
@@ -12,13 +12,13 @@ function LobbyContainer({ updateScene }) {
     if (key === SPACE_BAR) {
       updateScene(MUSIC_COLLECTION);
     }
-  }
+  };
 
   useEffect(() => {
     window.addEventListener('keydown', enterGame);
     return () => {
       window.removeEventListener('keydown', enterGame);
-    }
+    };
   });
   return (
     <Lobby />

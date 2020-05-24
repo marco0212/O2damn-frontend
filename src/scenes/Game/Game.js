@@ -5,7 +5,7 @@ import VisualArea from '../../components/VisualArea/VisualArea';
 import StatArea from '../../components/StatArea/StatArea';
 import Modal from '../../components/Modal/Container';
 
-export default function Game ({
+export default function Game({
   song,
   score,
   maxCombo,

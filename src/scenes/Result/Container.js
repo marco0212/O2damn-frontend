@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Result from './Result';
 import { connect } from 'react-redux';
+import Result from './Result';
 import { updateRanking } from '../../thunks';
 import { updateScene, updateGameSongId } from '../../actions';
 import { GAME, MUSIC_COLLECTION } from '../../constants';
@@ -15,7 +15,7 @@ function ResultContainer({
   updateGameSongId
 }) {
   const [username, setUsername] = useState('');
-  const updateUsernameHandler = (e) => setUsername(e.target.value);
+  const updateUsernameHandler = e => setUsername(e.target.value);
 
   const {
     id,
@@ -31,11 +31,11 @@ function ResultContainer({
     offBeat,
     miss
   } = stats;
-  const updateRanks = (e) => {
+  const updateRanks = e => {
     e.preventDefault();
     if (username.trim() && !isSubmit && !isLoading) {
       const newRanking = [...ranking, { username, score }].sort((b, a) => a - b);
-      updateRankings(id, newRanking); 
+      updateRankings(id, newRanking);
     }
   };
   const playAgain = () => {
@@ -73,7 +73,7 @@ const mapStateToProps = state => ({
     excellent: state.game.excellent,
     good: state.game.good,
     offBeat: state.game.offBeat,
-    miss: state.game.miss,
+    miss: state.game.miss
   },
   isLoading: state.result.fetchLoading,
   isSubmit: state.result.isSubmit

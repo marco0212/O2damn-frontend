@@ -1,4 +1,4 @@
-import { UPDATE_RANKING_PENDING, UPDATE_RANKING_SUCCESS, UPDATE_RANKING_FAILURE, UPDATE_SCENE } from "../constants";
+import { UPDATE_RANKING_PENDING, UPDATE_RANKING_SUCCESS, UPDATE_RANKING_FAILURE, UPDATE_SCENE } from '../constants';
 
 const initialState = {
   fetchLoading: false,
@@ -6,17 +6,17 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
-  switch(action.type) {
+  switch (action.type) {
     case UPDATE_SCENE:
       if (action.payload === 'RESULT') {
         return {
           ...initialState
         };
-      } else {
-        return {
-          ...state
-        };
       }
+      return {
+        ...state
+      };
+
     case UPDATE_RANKING_PENDING:
       return {
         ...state,
@@ -35,4 +35,4 @@ export default function (state = initialState, action) {
         ...state
       };
   }
-};
+}

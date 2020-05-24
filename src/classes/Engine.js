@@ -14,15 +14,15 @@ export default class Engine {
     this.timer = null;
   }
 
-  setContext = (ctx) => {
+  setContext(ctx) {
     this.ctx = ctx;
   }
 
-  setDuration = (time) => {
+  setDuration(time) {
     this.duration = time;
   }
 
-  togglePlay = (activeCb, deactiveCb) => {
+  togglePlay(activeCb, deactiveCb) {
     if (this.isPlay) {
       this.pause();
       deactiveCb();
@@ -32,14 +32,14 @@ export default class Engine {
     }
   }
 
-  pause = () => {
+  pause() {
     clearInterval(this.timer);
     cancelAnimationFrame(this.animationFrame);
     this.timer = null;
     this.isPlay = false;
   }
 
-  play = () => {
+  play() {
     if (!this.timer) {
       this.timer = setInterval(() => {
         this.playingTime += 50;
@@ -51,7 +51,7 @@ export default class Engine {
     this.frame();
   }
 
-  frame = () => {
+  frame = ()  => {
     if (this.playingTime / 1000 >= this.duration) {
       this.onGameEnd();
     } else {
@@ -61,7 +61,7 @@ export default class Engine {
     }
   }
 
-  setDelta = () => {
+  setDelta() {
     this.now = Date.now();
     this.delta = (this.now - this.then) / 1000;
     this.then = this.now;
@@ -82,7 +82,7 @@ export default class Engine {
     this.keyPads.forEach(keypad => keypad.keyDown(pressedKey));
   }
 
-  update = () => {
+  update() {
     this.ctx.clearRect(0, 0, this.width, this.height);
 
     for (let i = 0; i < this.notes.length; i++) {

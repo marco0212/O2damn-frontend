@@ -1,5 +1,5 @@
-import { UPDATE_GAME_SONG_ID, UPDATE_MISS, UPDATE_STATS, UPDATE_PLAYING_MODE } from "../constants";
-import getStatNameByTime from "../utils/judgement";
+import { UPDATE_GAME_SONG_ID, UPDATE_MISS, UPDATE_STATS, UPDATE_PLAYING_MODE } from '../constants';
+import getStatNameByTime from '../utils/judgement';
 
 const initialState = {
   currentSongId: '',
@@ -14,10 +14,10 @@ const initialState = {
   isPlayingMode: true
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   let newIndicators;
 
-  switch(action.type) {
+  switch (action.type) {
     case UPDATE_GAME_SONG_ID:
       return {
         ...initialState,
@@ -32,13 +32,13 @@ export default function(state = initialState, action) {
         ...state,
         miss: state.miss + 1,
         combo: 0,
-        indicators: newIndicators,
+        indicators: newIndicators
       };
 
     case UPDATE_STATS:
       const timeDiff = action.payload;
       const updateCombo = state.combo + 1;
-      const nextState = Object.assign({}, state);
+      const nextState = { ...state };
       const statName = getStatNameByTime(timeDiff);
       const scoreTable = {
         offBeat: 30,

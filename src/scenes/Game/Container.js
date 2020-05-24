@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
-import Game from './Game';
 import { connect } from 'react-redux';
+import Game from './Game';
 import Note from '../../classes/Note';
 import KeyPad from '../../classes/KeyPad';
 import Engine from '../../classes/Engine';
@@ -72,7 +72,7 @@ function GameContainer({
 
     updatePlayingMode();
   };
-  const onKeydown = useCallback((e) => {
+  const onKeydown = useCallback(e => {
     const pressedKey = e.which;
     const ESC = 27;
     const isBindingKeyPressed = bindingKeys
@@ -113,7 +113,7 @@ function GameContainer({
     playMusic(delay * 1000);
 
     if (visualizerRef.current) {
-      wave.fromElement(audio, "visualizer", options);
+      wave.fromElement(audio, 'visualizer', options);
     }
 
     window.addEventListener('keydown', onKeydown);
@@ -154,7 +154,7 @@ const mapStateToProps = state => ({
     excellent: state.game.excellent,
     good: state.game.good,
     offBeat: state.game.offBeat,
-    miss: state.game.miss,
+    miss: state.game.miss
   },
   isPlayingMode: state.game.isPlayingMode
 });
@@ -163,6 +163,6 @@ const mapDispatchToProps = dispatch => ({
   updatePlayingMode: () => dispatch(updatePlayingMode()),
   updateMiss: () => dispatch(updateMiss()),
   updateStats: timeDiff => dispatch(updateStats(timeDiff))
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameContainer);
